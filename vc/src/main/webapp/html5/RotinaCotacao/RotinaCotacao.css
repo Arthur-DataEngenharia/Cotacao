@@ -96,28 +96,29 @@ sk-sidenav {
 }
 
 /* Botao Gerar Pedido em verde.
-   Seletor com button + [default] para vencer a especificidade do estilo do tema. */
-button.btnGerarPedidoVerde[default] {
+   Classe repetida (button.x.x.x) para vencer a especificidade do estilo do tema
+   sem depender do atributo [default], que pode nao estar no DOM. */
+button.btnGerarPedidoVerde.btnGerarPedidoVerde.btnGerarPedidoVerde {
     background-color: #2e7d32 !important;
     border-color: #2e7d32 !important;
     color: #ffffff !important;
 }
-button.btnGerarPedidoVerde[default] sk-icon,
-button.btnGerarPedidoVerde[default] span {
+button.btnGerarPedidoVerde.btnGerarPedidoVerde.btnGerarPedidoVerde sk-icon,
+button.btnGerarPedidoVerde.btnGerarPedidoVerde.btnGerarPedidoVerde span {
     color: #ffffff !important;
 }
-button.btnGerarPedidoVerde[default]:hover:not([disabled]) {
+button.btnGerarPedidoVerde.btnGerarPedidoVerde.btnGerarPedidoVerde:hover:not([disabled]) {
     background-color: #1b5e20 !important;
     border-color: #1b5e20 !important;
 }
-button.btnGerarPedidoVerde[default][disabled] {
+button.btnGerarPedidoVerde.btnGerarPedidoVerde.btnGerarPedidoVerde[disabled] {
     background-color: #cccccc !important;
     border-color: #bbbbbb !important;
     color: #666666 !important;
     opacity: 1;
     cursor: not-allowed;
 }
-button.btnGerarPedidoVerde[default][disabled] sk-icon,
-button.btnGerarPedidoVerde[default][disabled] span {
+button.btnGerarPedidoVerde.btnGerarPedidoVerde.btnGerarPedidoVerde[disabled] sk-icon,
+button.btnGerarPedidoVerde.btnGerarPedidoVerde.btnGerarPedidoVerde[disabled] span {
     color: #666666 !important;
 }
