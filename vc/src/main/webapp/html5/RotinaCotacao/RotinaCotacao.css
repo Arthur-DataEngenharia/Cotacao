@@ -95,28 +95,29 @@ sk-sidenav {
     overflow-x: auto !important;
 }
 
-/* Botao Gerar Pedido em verde */
-.btnGerarPedidoVerde {
+/* Botao Gerar Pedido em verde.
+   Seletor com button + [default] para vencer a especificidade do estilo do tema. */
+button.btnGerarPedidoVerde[default] {
     background-color: #2e7d32 !important;
     border-color: #2e7d32 !important;
     color: #ffffff !important;
 }
-.btnGerarPedidoVerde sk-icon,
-.btnGerarPedidoVerde span {
+button.btnGerarPedidoVerde[default] sk-icon,
+button.btnGerarPedidoVerde[default] span {
     color: #ffffff !important;
 }
-.btnGerarPedidoVerde:hover:not([disabled]) {
+button.btnGerarPedidoVerde[default]:hover:not([disabled]) {
     background-color: #1b5e20 !important;
     border-color: #1b5e20 !important;
 }
-.btnGerarPedidoVerde[disabled] {
+button.btnGerarPedidoVerde[default][disabled] {
     background-color: #cccccc !important;
     border-color: #bbbbbb !important;
     color: #666666 !important;
     opacity: 1;
     cursor: not-allowed;
 }
-.btnGerarPedidoVerde[disabled] sk-icon,
-.btnGerarPedidoVerde[disabled] span {
+button.btnGerarPedidoVerde[default][disabled] sk-icon,
+button.btnGerarPedidoVerde[default][disabled] span {
     color: #666666 !important;
 }
