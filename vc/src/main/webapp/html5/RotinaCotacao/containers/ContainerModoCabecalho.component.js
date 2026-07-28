@@ -497,18 +497,27 @@ angular
                 }, true);
             }
 
-            // Envia os itens selecionados + o tipo de negociacao (popup) para o servico geraPedidoSP.
+            // Envia o tipo de negociacao (popup) + as cotacoes das linhas selecionadas para o servico geraPedidoSP.
             function geraPedidoNovoServico(itensSelecionados) {
                 openParametrosGeraPedidoPopup().then(function (result) {
-                    // Monta os itens no mesmo formato usado por resumoItensAprovadosFornecedores.
-                    // O service usa esses itens apenas para identificar as cotacoes (NUMCOTACAO).
-                    var parametros = getXmlItensCotacao(itensSelecionados);
+                    // Payload JSON plano (o ServiceProxy converteria para XML se enviassemos
+                    // a estrutura itensCotacao com campos no formato {$: valor}, e o CODTIPVENDA
+                    // do topo se perderia no getJsonRequestBody do servico).
+                    var numCotacoes = [];
+                    itensSelecionados.forEach(function (item) {
+                        var nc = RotinaCotacaoUtil.getObjectValue(item["NUMCOTACAO"]);
+                        if (nc != null && numCotacoes.indexOf("" + nc) === -1) {
+                            numCotacoes.push("" + nc);
+                        }
+                    });
 
-                    // Parametro do popup (nivel raiz do request) — equivale ao antigo
-                    // contextoAcao.getParam("CODTIPVENDA") da acao de botao.
-                    parametros.CODTIPVENDA = result.psqCodTipVenda;
+                    var request = {
+                        // equivale ao antigo contextoAcao.getParam("CODTIPVENDA") da acao de botao
+                        CODTIPVENDA: result.psqCodTipVenda,
+                        NUMCOTACOES: numCotacoes
+                    };
 
-                    ServiceProxy.callService('addon-cotacao-data@geraPedidoSP.geraPedido', parametros)
+                    ServiceProxy.callService('addon-cotacao-data@geraPedidoSP.geraPedido', request)
                         .then(function (res) {
                             var msg = ObjectUtils.getProperty(res, 'responseBody.MENSAGEM');
                             MessageUtils.showInfo(MessageUtils.TITLE_INFORMATION, msg || i18n("cot_msgGeraPedidoSucesso"));
