@@ -65,6 +65,8 @@
                                 </button>
                                 <button tooltip="Cotacao.RotinaCotacao.cot_menuItemCancelarCotacao"
                                         ng-click="ctrl.aprovarCancelamentoDaCotacaoProduto()"
+                                        ng-disabled="!ctrl.podeCancelar"
+                                        class="btnCancelarVermelho"
                                         tooltip-placement="bottom"
                                         tooltip-append-to-body="true"
                                         default sk-i18n>

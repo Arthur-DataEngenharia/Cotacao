@@ -70,9 +70,10 @@ angular
             self.onDataGridLoaded = onDataGridLoaded;
             self.loadOnInitialize = MGEParameters.asBoolean("global.carregar.registros.iniciar.tela");
 
-            // Controle de acesso do botao Gerar Pedido (acronym GPD no menu.xml).
+            // Controle de acesso dos botoes (acronyms no menu.xml).
             // Deny por padrao ate a autorizacao carregar.
             self.podeGerarPedido = false;
+            self.podeCancelar = false;
 
             self.$onInit = $onInit;
 
@@ -85,6 +86,7 @@ angular
 
                 MGEAuthorizationService.loadAuthorization(SkApplicationInstance.getResourceID()).then(function (authData) {
                     self.podeGerarPedido = authData.hasAccess("GPD");
+                    self.podeCancelar = authData.hasAccess("CNC");
                 });
 
                 ServiceProxy.addClientEvent('br.com.sankhya.cotacao.sugestao.fornecedores.enviar.email', function (clientEvent) {
@@ -601,6 +603,10 @@ angular
             }
 
             function aprovarCancelamentoDaCotacaoProduto() {
+                if (!self.podeCancelar) {
+                    MessageUtils.showError(MessageUtils.TITLE_ERROR, i18n('Attach.msgControleAcesso'));
+                    return;
+                }
                 getItensCotacao(function (itens) {
                 	
                 	var _permiteCancelarProduto = true;
