@@ -279,6 +279,8 @@
     "msgPedidoGeradoConfirmado": "O Pedido/Nota <b>{{p0}}</b> foi incluído e confirmado.",
     "resumo": "Resumo",
     "titlePopupProdutosEspecificos": "Produtos específicos",
+    "titlePopupParametrosGeraPedido": "Parâmetros do pedido de compra",
+    "cot_msgGeraPedidoSucesso": "Pedido(s) de compra gerado(s) com sucesso.",
     "tooTipDefinirProdReal": "Define o produto específico quando a cotação está baseada em um produto genérico",
     "cot_titleMultDtEntrega": "Múltiplas datas para entrega",
     "headerProdutoEspecifico": "Produto específico",

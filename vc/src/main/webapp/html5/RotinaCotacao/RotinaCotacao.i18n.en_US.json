@@ -277,6 +277,8 @@
     "padraoRodape": "Qty. Quoted: <b>{{p0}}</b>   Balance available: <b>{{p1}}</b>",
     "msgPedidoGeradoConfirmado": "The Order/Invoice <b>#{{p0}}</b> was inserted and confirmed.",
     "titlePopupProdutosEspecificos": "Set actual product",
+    "titlePopupParametrosGeraPedido": "Purchase order parameters",
+    "cot_msgGeraPedidoSucesso": "Purchase order(s) generated successfully.",
     "tooTipDefinirProdReal": "Defines the actual product when the quote is based on a generic product",
     "cot_titleMultDtEntrega": "Multiple delivery dates",
     "headerProdutoEspecifico": "Specific product",

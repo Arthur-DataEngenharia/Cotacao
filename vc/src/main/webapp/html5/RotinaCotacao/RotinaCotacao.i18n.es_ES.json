@@ -276,6 +276,8 @@
     "padraoRodape": "Cant. Citado: <b>{{p0}}</b>   Balance disponible: <b>{{p1}}</b>",
     "msgPedidoGeradoConfirmado": "Se insertó i confirmó lo Pedido/Factura <b>{{p0}}</ b>.",
     "titlePopupProdutosEspecificos": "Definir producto real",
+    "titlePopupParametrosGeraPedido": "Parámetros del pedido de compra",
+    "cot_msgGeraPedidoSucesso": "¡Pedido(s) de compra generado(s) con éxito!",
     "tooTipDefinirProdReal": "Define el producto real cuando la cotización está basada en un producto genérico",
     "cot_titleMultDtEntrega": "Varias fechas de entrega",
     "headerProdutoEspecifico": "Producto específico",
