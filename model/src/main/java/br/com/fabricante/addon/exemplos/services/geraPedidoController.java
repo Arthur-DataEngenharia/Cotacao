@@ -18,7 +18,6 @@ import br.com.sankhya.studio.annotations.Service;
 import br.com.sankhya.studio.annotations.enums.EJBTransactionType;
 import br.com.sankhya.studio.persistence.Transactional;
 import br.com.sankhya.ws.ServiceContext;
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.sankhya.util.BigDecimalUtil;
@@ -60,20 +59,22 @@ public class geraPedidoController {
     private static final JapeWrapper cttDAO = JapeFactory.dao("Contato");         // TGFCTT
     private static final JapeWrapper usuDAO = JapeFactory.dao(DynamicEntityNames.USUARIO);
 
-    private final Gson gson = new Gson();
-
     @Transactional
     public void geraPedido(ServiceContext ctx) throws Exception {
 
-        JsonObject req = gson.fromJson(ctx.getJsonRequestBody(), JsonObject.class);
+        // ctx.getJsonRequestBody() ja retorna um JsonObject (nao String) nesta versao.
+        JsonObject req = ctx.getJsonRequestBody();
         if (req == null) {
             disparaErro("Requisicao vazia.");
         }
+        String rawBody = String.valueOf(req);
+        System.out.println("[geraPedidoSP] requestBody=" + rawBody);
 
         // Parametro do popup (equivale a contextoAcao.getParam("CODTIPVENDA"))
         String codtipvenda = asString(req, "CODTIPVENDA");
         if (codtipvenda == null) {
-            disparaErro("Informe o tipo de negociacao (CODTIPVENDA).");
+            // DEBUG temporario: mostra o corpo recebido para diagnosticar o payload.
+            disparaErro("Informe o tipo de negociacao (CODTIPVENDA). [DEBUG corpo recebido: " + rawBody + "]");
         }
 
         // NUMCOTACOES das linhas selecionadas (JSON plano enviado pelo front) -> cotacoes a processar
