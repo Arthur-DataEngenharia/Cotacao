@@ -490,27 +490,46 @@ angular
             function gerarPedidos() {
                 getItensCotacao(function (itensSelecionados) {
                     if (possuiSomenteItensAprovados(itensSelecionados)) {
-                        var strValidacaoDtLimite = validateDataLimiteItens(itensSelecionados);
-
-                        if (StringUtils.emptyAsNull(strValidacaoDtLimite) == null) {
-                            resumoItensAprovadosFornecedores(itensSelecionados);
-                        } else {
-                            var param = [strValidacaoDtLimite];
-                            var msg = i18n("cot_msgAvisoPrazoVencido");
-                            var confirm = i18n("cot_desejaContinuar");
-                            var msgToShow = msg + "\n\n" + strValidacaoDtLimite + "\n" + confirm;
-
-                            MessageUtils.showAlertWithConfirm(MessageUtils.TITLE_CONFIRMATION, msgToShow, null, { okBtnLabel: i18n('Geral.buttonSim') })
-                                .then(function () {
-                                    resumoItensAprovadosFornecedores(itensSelecionados);
-                                }, function (reason) {
-                                });
-
-                        }
+                        geraPedidoNovoServico(itensSelecionados);
                     } else {
                         MessageUtils.showError(MessageUtils.TITLE_ERROR, i18n('Cotacao.RotinaCotacao.cot_msgValidateGerarPedidos'));
                     }
                 }, true);
+            }
+
+            // Envia os itens selecionados + o tipo de negociacao (popup) para o servico geraPedidoSP.
+            function geraPedidoNovoServico(itensSelecionados) {
+                openParametrosGeraPedidoPopup().then(function (result) {
+                    // Monta os itens no mesmo formato usado por resumoItensAprovadosFornecedores.
+                    // O service usa esses itens apenas para identificar as cotacoes (NUMCOTACAO).
+                    var parametros = getXmlItensCotacao(itensSelecionados);
+
+                    // Parametro do popup (nivel raiz do request) — equivale ao antigo
+                    // contextoAcao.getParam("CODTIPVENDA") da acao de botao.
+                    parametros.CODTIPVENDA = result.psqCodTipVenda;
+
+                    ServiceProxy.callService('geraPedidoSP.geraPedido', parametros)
+                        .then(function (res) {
+                            var msg = ObjectUtils.getProperty(res, 'responseBody.MENSAGEM');
+                            MessageUtils.showInfo(MessageUtils.TITLE_INFORMATION, msg || i18n("cot_msgGeraPedidoSucesso"));
+                            self.dsCabCotacao.refreshCurrentRow();
+                        })
+                        .catch(function (err) {
+                            MessageUtils.showError(MessageUtils.TITLE_ERROR, "" + err);
+                        });
+                });
+            }
+
+            function openParametrosGeraPedidoPopup() {
+                return SanPopup.open({
+                    title: i18n('Cotacao.RotinaCotacao.titlePopupParametrosGeraPedido'),
+                    templateUrl: 'html5/RotinaCotacao/popup/PopupParametrosGeraPedido.tpl.html',
+                    controller: 'PopupParametrosGeraPedidoController',
+                    controllerAs: 'ctrl',
+                    size: 'md',
+                    height: '450',
+                    okBtnLabel: i18n('Geral.confirmar')
+                }).result;
             }
 
             function aprovarMelhorFornecedorProduto() {
