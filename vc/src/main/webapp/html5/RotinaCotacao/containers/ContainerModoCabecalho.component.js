@@ -74,6 +74,8 @@ angular
             // Deny por padrao ate a autorizacao carregar.
             self.podeGerarPedido = false;
             self.podeCancelar = false;
+            self.podeEnviar = false;
+            self.podeAprovar = false;
 
             self.$onInit = $onInit;
 
@@ -87,6 +89,8 @@ angular
                 MGEAuthorizationService.loadAuthorization(SkApplicationInstance.getResourceID()).then(function (authData) {
                     self.podeGerarPedido = authData.hasAccess("GPD");
                     self.podeCancelar = authData.hasAccess("CNC");
+                    self.podeEnviar = authData.hasAccess("ENV");
+                    self.podeAprovar = authData.hasAccess("APR");
                 });
 
                 ServiceProxy.addClientEvent('br.com.sankhya.cotacao.sugestao.fornecedores.enviar.email', function (clientEvent) {
@@ -555,6 +559,10 @@ angular
             }
 
             function aprovarMelhorFornecedorProduto() {
+                if (!self.podeAprovar) {
+                    MessageUtils.showError(MessageUtils.TITLE_ERROR, i18n('Attach.msgControleAcesso'));
+                    return;
+                }
                 getItensCotacao(function (itens) {
                     if (itens.length == 0) {
                         MessageUtils.showError(MessageUtils.TITLE_ERROR, i18n("cot_msgErroSelecioneProdutoParaAprovar"));
@@ -888,6 +896,10 @@ angular
             }
 
             function enviarProdutosPortal() {
+                if (!self.podeEnviar) {
+                    MessageUtils.showError(MessageUtils.TITLE_ERROR, i18n('Attach.msgControleAcesso'));
+                    return;
+                }
                 getItensCotacao(function (itensSelecionados) {
                     if (itensSelecionados.length > 0) {
 

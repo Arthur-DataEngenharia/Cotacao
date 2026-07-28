@@ -95,65 +95,99 @@ sk-sidenav {
     overflow-x: auto !important;
 }
 
-/* Botoes coloridos (Bootstrap .btn.btn-default):
+/* Botoes de acao coloridos (Bootstrap .btn.btn-default):
    - `background` shorthand + background-image:none remove o gradiente cinza do Bootstrap;
-   - texto BRANCO com `text-shadow: none` (o halo borrado vinha da sombra clara do tema sob o texto branco);
-   - [disabled] fica cinza com texto escuro. */
+   - `text-shadow: none` evita o halo borrado (a sombra clara do tema sob o texto);
+   - [disabled] fica cinza com texto escuro.
+   Classes por funcao (a cor vive so no CSS): btnEnviar(amarelo) btnAprovar(verde)
+   btnGerarPedido(azul) btnCancelar(vermelho). */
 
-/* Gerar Pedido - verde */
-button.btnGerarPedidoVerde.btn-default {
-    background: #2e7d32 !important;
+/* comum a todos */
+button.btnEnviar.btn-default,
+button.btnAprovar.btn-default,
+button.btnGerarPedido.btn-default,
+button.btnCancelar.btn-default {
     background-image: none !important;
+    text-shadow: none !important;
+}
+
+/* Enviar - amarelo (texto escuro para contraste) */
+button.btnEnviar.btn-default {
+    background: #fbc02d !important;
+    border-color: #fbc02d !important;
+    color: #333333 !important;
+}
+button.btnEnviar.btn-default sk-icon,
+button.btnEnviar.btn-default span {
+    color: #333333 !important;
+    text-shadow: none !important;
+}
+button.btnEnviar.btn-default:hover:not([disabled]),
+button.btnEnviar.btn-default:focus:not([disabled]),
+button.btnEnviar.btn-default:active:not([disabled]) {
+    background: #f9a825 !important;
+    border-color: #f9a825 !important;
+}
+
+/* Aprovar - verde */
+button.btnAprovar.btn-default {
+    background: #2e7d32 !important;
     border-color: #2e7d32 !important;
     color: #ffffff !important;
-    text-shadow: none !important;
 }
-button.btnGerarPedidoVerde.btn-default sk-icon,
-button.btnGerarPedidoVerde.btn-default span {
+button.btnAprovar.btn-default sk-icon,
+button.btnAprovar.btn-default span {
     color: #ffffff !important;
     text-shadow: none !important;
 }
-button.btnGerarPedidoVerde.btn-default:hover:not([disabled]),
-button.btnGerarPedidoVerde.btn-default:focus:not([disabled]),
-button.btnGerarPedidoVerde.btn-default:active:not([disabled]) {
+button.btnAprovar.btn-default:hover:not([disabled]),
+button.btnAprovar.btn-default:focus:not([disabled]),
+button.btnAprovar.btn-default:active:not([disabled]) {
     background: #1b5e20 !important;
-    background-image: none !important;
     border-color: #1b5e20 !important;
 }
-button.btnGerarPedidoVerde.btn-default[disabled] {
-    background: #cccccc !important;
-    background-image: none !important;
-    border-color: #bbbbbb !important;
-    color: #666666 !important;
-    opacity: 1;
-    cursor: not-allowed;
+
+/* Gerar Pedido - azul */
+button.btnGerarPedido.btn-default {
+    background: #1565c0 !important;
+    border-color: #1565c0 !important;
+    color: #ffffff !important;
 }
-button.btnGerarPedidoVerde.btn-default[disabled] sk-icon,
-button.btnGerarPedidoVerde.btn-default[disabled] span {
-    color: #666666 !important;
+button.btnGerarPedido.btn-default sk-icon,
+button.btnGerarPedido.btn-default span {
+    color: #ffffff !important;
+    text-shadow: none !important;
+}
+button.btnGerarPedido.btn-default:hover:not([disabled]),
+button.btnGerarPedido.btn-default:focus:not([disabled]),
+button.btnGerarPedido.btn-default:active:not([disabled]) {
+    background: #0d47a1 !important;
+    border-color: #0d47a1 !important;
 }
 
 /* Cancelar - vermelho */
-button.btnCancelarVermelho.btn-default {
+button.btnCancelar.btn-default {
     background: #c62828 !important;
-    background-image: none !important;
     border-color: #c62828 !important;
     color: #ffffff !important;
-    text-shadow: none !important;
 }
-button.btnCancelarVermelho.btn-default sk-icon,
-button.btnCancelarVermelho.btn-default span {
+button.btnCancelar.btn-default sk-icon,
+button.btnCancelar.btn-default span {
     color: #ffffff !important;
     text-shadow: none !important;
 }
-button.btnCancelarVermelho.btn-default:hover:not([disabled]),
-button.btnCancelarVermelho.btn-default:focus:not([disabled]),
-button.btnCancelarVermelho.btn-default:active:not([disabled]) {
+button.btnCancelar.btn-default:hover:not([disabled]),
+button.btnCancelar.btn-default:focus:not([disabled]),
+button.btnCancelar.btn-default:active:not([disabled]) {
     background: #8e0000 !important;
-    background-image: none !important;
     border-color: #8e0000 !important;
 }
-button.btnCancelarVermelho.btn-default[disabled] {
+
+/* estado desabilitado (comum) - cinza */
+button.btnEnviar.btn-default[disabled],
+button.btnAprovar.btn-default[disabled],
+button.btnGerarPedido.btn-default[disabled],
+button.btnCancelar.btn-default[disabled] {
     background: #cccccc !important;
     background-image: none !important;
     border-color: #bbbbbb !important;
@@ -161,7 +195,13 @@ button.btnCancelarVermelho.btn-default[disabled] {
     opacity: 1;
     cursor: not-allowed;
 }
-button.btnCancelarVermelho.btn-default[disabled] sk-icon,
-button.btnCancelarVermelho.btn-default[disabled] span {
+button.btnEnviar.btn-default[disabled] sk-icon,
+button.btnEnviar.btn-default[disabled] span,
+button.btnAprovar.btn-default[disabled] sk-icon,
+button.btnAprovar.btn-default[disabled] span,
+button.btnGerarPedido.btn-default[disabled] sk-icon,
+button.btnGerarPedido.btn-default[disabled] span,
+button.btnCancelar.btn-default[disabled] sk-icon,
+button.btnCancelar.btn-default[disabled] span {
     color: #666666 !important;
 }

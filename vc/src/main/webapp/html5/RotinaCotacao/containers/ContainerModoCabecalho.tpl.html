@@ -33,6 +33,8 @@
                             <sk-hbox gap="5">
                                 <button tooltip="Cotacao.RotinaCotacao.cot_ttEnviarProdutosSelecionados"
                                         ng-click="ctrl.carregaPreferencias(ctrl.enviarProdutosPortal)"
+                                        ng-disabled="!ctrl.podeEnviar"
+                                        class="btnEnviar"
                                         tooltip-placement="bottom"
                                         tooltip-append-to-body="true"
                                         default sk-i18n>
@@ -43,6 +45,8 @@
                                 </button>
                                 <button tooltip="Cotacao.RotinaCotacao.cot_btnAprovar"
                                         ng-click="ctrl.aprovarMelhorFornecedorProduto()"
+                                        ng-disabled="!ctrl.podeAprovar"
+                                        class="btnAprovar"
                                         tooltip-placement="bottom"
                                         tooltip-append-to-body="true"
                                         default sk-i18n>
@@ -54,7 +58,7 @@
                                 <button tooltip="Cotacao.RotinaCotacao.labelGerarPedidos"
                                         ng-click="ctrl.gerarPedidos()"
                                         ng-disabled="!ctrl.podeGerarPedido"
-                                        class="btnGerarPedidoVerde"
+                                        class="btnGerarPedido"
                                         tooltip-placement="bottom"
                                         tooltip-append-to-body="true"
                                         default sk-i18n>
@@ -66,7 +70,7 @@
                                 <button tooltip="Cotacao.RotinaCotacao.cot_menuItemCancelarCotacao"
                                         ng-click="ctrl.aprovarCancelamentoDaCotacaoProduto()"
                                         ng-disabled="!ctrl.podeCancelar"
-                                        class="btnCancelarVermelho"
+                                        class="btnCancelar"
                                         tooltip-placement="bottom"
                                         tooltip-append-to-body="true"
                                         default sk-i18n>

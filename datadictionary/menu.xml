@@ -12,6 +12,8 @@
         <ui id="RotinaCotacaoData" url="/$ctx/RotinaCotacao.xhtml5" description="Processo de Cotação">
             <acesso acronym="GPD" sequence="1" description="Gerar Pedido de Compra"/>
             <acesso acronym="CNC" sequence="2" description="Cancelar Cotacao"/>
+            <acesso acronym="ENV" sequence="3" description="Enviar Produtos"/>
+            <acesso acronym="APR" sequence="4" description="Aprovar Melhor Fornecedor"/>
         </ui>
 
 
