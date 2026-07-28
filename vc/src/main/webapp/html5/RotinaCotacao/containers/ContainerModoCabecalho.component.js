@@ -508,7 +508,7 @@ angular
                     // contextoAcao.getParam("CODTIPVENDA") da acao de botao.
                     parametros.CODTIPVENDA = result.psqCodTipVenda;
 
-                    ServiceProxy.callService('geraPedidoSP.geraPedido', parametros)
+                    ServiceProxy.callService('addon-cotacao-data@geraPedidoSP.geraPedido', parametros)
                         .then(function (res) {
                             var msg = ObjectUtils.getProperty(res, 'responseBody.MENSAGEM');
                             MessageUtils.showInfo(MessageUtils.TITLE_INFORMATION, msg || i18n("cot_msgGeraPedidoSucesso"));
