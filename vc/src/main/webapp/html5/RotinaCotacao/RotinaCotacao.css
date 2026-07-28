@@ -96,29 +96,34 @@ sk-sidenav {
 }
 
 /* Botao Gerar Pedido em verde.
-   Classe repetida (button.x.x.x) para vencer a especificidade do estilo do tema
-   sem depender do atributo [default], que pode nao estar no DOM. */
-button.btnGerarPedidoVerde.btnGerarPedidoVerde.btnGerarPedidoVerde {
-    background-color: #2e7d32 !important;
+   E um botao Bootstrap (.btn.btn-default): usar o shorthand `background` (e background-image: none)
+   para remover o gradiente cinza que o Bootstrap pinta por cima do background-color. */
+button.btnGerarPedidoVerde.btn-default {
+    background: #2e7d32 !important;
+    background-image: none !important;
     border-color: #2e7d32 !important;
     color: #ffffff !important;
 }
-button.btnGerarPedidoVerde.btnGerarPedidoVerde.btnGerarPedidoVerde sk-icon,
-button.btnGerarPedidoVerde.btnGerarPedidoVerde.btnGerarPedidoVerde span {
+button.btnGerarPedidoVerde.btn-default sk-icon,
+button.btnGerarPedidoVerde.btn-default span {
     color: #ffffff !important;
 }
-button.btnGerarPedidoVerde.btnGerarPedidoVerde.btnGerarPedidoVerde:hover:not([disabled]) {
-    background-color: #1b5e20 !important;
+button.btnGerarPedidoVerde.btn-default:hover:not([disabled]),
+button.btnGerarPedidoVerde.btn-default:focus:not([disabled]),
+button.btnGerarPedidoVerde.btn-default:active:not([disabled]) {
+    background: #1b5e20 !important;
+    background-image: none !important;
     border-color: #1b5e20 !important;
 }
-button.btnGerarPedidoVerde.btnGerarPedidoVerde.btnGerarPedidoVerde[disabled] {
-    background-color: #cccccc !important;
+button.btnGerarPedidoVerde.btn-default[disabled] {
+    background: #cccccc !important;
+    background-image: none !important;
     border-color: #bbbbbb !important;
     color: #666666 !important;
     opacity: 1;
     cursor: not-allowed;
 }
-button.btnGerarPedidoVerde.btnGerarPedidoVerde.btnGerarPedidoVerde[disabled] sk-icon,
-button.btnGerarPedidoVerde.btnGerarPedidoVerde.btnGerarPedidoVerde[disabled] span {
+button.btnGerarPedidoVerde.btn-default[disabled] sk-icon,
+button.btnGerarPedidoVerde.btn-default[disabled] span {
     color: #666666 !important;
 }
