@@ -17,7 +17,7 @@
 	<script type="text/javascript" src="html5/RotinaCotacao/popup/Popupincluir.controller.js"></script>	
 	<script type="text/javascript" src="html5/RotinaCotacao/popup/PopupGerarPedido.controller.js"></script>
 	<script type="text/javascript" src="html5/RotinaCotacao/popup/PopupParametrosGeraPedido.controller.js"></script>
-	<script type="text/javascript" src="html5/RotinaCotacao/popup/PopupProcessaLiberacoes.controller.js"></script>	
+	<script type="text/javascript" src="html5/RotinaCotacao/popup/PopupProcessaLiberacoes.controller.js"></script>
 	<script type="text/javascript" src="html5/RotinaCotacao/popup/PopupAprovarFornecedor.controller.js"></script>		
 	<script type="text/javascript" src="html5/RotinaCotacao/popup/PopupUltimasCompras.controller.js"></script>	
 	<script type="text/javascript" src="html5/RotinaCotacao/popup/PopupProdutosEspecificos.controller.js"></script>		
