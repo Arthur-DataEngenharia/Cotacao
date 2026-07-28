@@ -96,17 +96,13 @@ sk-sidenav {
 }
 
 /* Botao Gerar Pedido em verde.
-   E um botao Bootstrap (.btn.btn-default): usar o shorthand `background` (e background-image: none)
-   para remover o gradiente cinza que o Bootstrap pinta por cima do background-color. */
+   Muda SO o fundo (e a borda) do botao Bootstrap (.btn.btn-default), sem tocar no texto/fonte
+   (evita o halo borrado que vinha de forcar texto branco por cima do text-shadow do tema).
+   `background` shorthand + background-image:none remove o gradiente cinza do Bootstrap. */
 button.btnGerarPedidoVerde.btn-default {
     background: #2e7d32 !important;
     background-image: none !important;
     border-color: #2e7d32 !important;
-    color: #ffffff !important;
-}
-button.btnGerarPedidoVerde.btn-default sk-icon,
-button.btnGerarPedidoVerde.btn-default span {
-    color: #ffffff !important;
 }
 button.btnGerarPedidoVerde.btn-default:hover:not([disabled]),
 button.btnGerarPedidoVerde.btn-default:focus:not([disabled]),
@@ -119,11 +115,6 @@ button.btnGerarPedidoVerde.btn-default[disabled] {
     background: #cccccc !important;
     background-image: none !important;
     border-color: #bbbbbb !important;
-    color: #666666 !important;
     opacity: 1;
     cursor: not-allowed;
-}
-button.btnGerarPedidoVerde.btn-default[disabled] sk-icon,
-button.btnGerarPedidoVerde.btn-default[disabled] span {
-    color: #666666 !important;
 }
