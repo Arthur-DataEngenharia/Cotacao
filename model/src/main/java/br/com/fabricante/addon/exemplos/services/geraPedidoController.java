@@ -1,6 +1,7 @@
 package br.com.fabricante.addon.exemplos.services;
 
 import br.com.sankhya.jape.EntityFacade;
+import br.com.sankhya.jape.core.JapeSession;
 import br.com.sankhya.jape.bmp.PersistentLocalEntity;
 import br.com.sankhya.jape.dao.EntityDAO;
 import br.com.sankhya.jape.dao.EntityPropertyDescriptor;
@@ -67,14 +68,11 @@ public class geraPedidoController {
         if (req == null) {
             disparaErro("Requisicao vazia.");
         }
-        String rawBody = String.valueOf(req);
-        System.out.println("[geraPedidoSP] requestBody=" + rawBody);
 
         // Parametro do popup (equivale a contextoAcao.getParam("CODTIPVENDA"))
         String codtipvenda = asString(req, "CODTIPVENDA");
         if (codtipvenda == null) {
-            // DEBUG temporario: mostra o corpo recebido para diagnosticar o payload.
-            disparaErro("Informe o tipo de negociacao (CODTIPVENDA). [DEBUG corpo recebido: " + rawBody + "]");
+            disparaErro("Informe o tipo de negociacao (CODTIPVENDA).");
         }
 
         // NUMCOTACOES das linhas selecionadas (JSON plano enviado pelo front) -> cotacoes a processar
@@ -94,6 +92,7 @@ public class geraPedidoController {
             disparaErro("Nenhuma cotacao informada.");
         }
 
+        JapeSession.SessionHandle hnd = JapeSession.open();
         JdbcWrapper jdbc = EntityFacadeFactory.getDWFFacade().getJdbcWrapper();
         jdbc.openSession();
 
@@ -338,6 +337,7 @@ public class geraPedidoController {
 
         } finally {
             jdbc.closeSession();
+            JapeSession.close(hnd);
         }
     }
 
