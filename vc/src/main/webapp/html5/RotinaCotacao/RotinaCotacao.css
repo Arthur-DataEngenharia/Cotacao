@@ -118,3 +118,24 @@ button.btnGerarPedidoVerde.btn-default[disabled] {
     opacity: 1;
     cursor: not-allowed;
 }
+
+/* Botao Cancelar em vermelho (mesmo padrao do verde: so fundo/borda). */
+button.btnCancelarVermelho.btn-default {
+    background: #c62828 !important;
+    background-image: none !important;
+    border-color: #c62828 !important;
+}
+button.btnCancelarVermelho.btn-default:hover:not([disabled]),
+button.btnCancelarVermelho.btn-default:focus:not([disabled]),
+button.btnCancelarVermelho.btn-default:active:not([disabled]) {
+    background: #8e0000 !important;
+    background-image: none !important;
+    border-color: #8e0000 !important;
+}
+button.btnCancelarVermelho.btn-default[disabled] {
+    background: #cccccc !important;
+    background-image: none !important;
+    border-color: #bbbbbb !important;
+    opacity: 1;
+    cursor: not-allowed;
+}
