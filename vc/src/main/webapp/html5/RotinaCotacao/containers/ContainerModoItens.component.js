@@ -56,6 +56,8 @@ angular
             self.btnCalCustosClicked = btnCalCustosClicked;
             self.onDataGridLoaded = onDataGridLoaded;
             self.gerarPedidos = gerarPedidos;
+            self.geraPedidoNovoServico = geraPedidoNovoServico;
+            self.openParametrosGeraPedidoPopup = openParametrosGeraPedidoPopup;
             self.aprovarCotacaoProdutoComPopUpResumo = aprovarCotacaoProdutoComPopUpResumo;
             self.addProdutos = addProdutos;
             self.carregaPreferencias = carregaPreferencias;
@@ -1216,11 +1218,15 @@ angular
                 }
             }
 
-            function getXmlItensCotacao() {
+            function getXmlItensCotacao(itensSelecionados) {
 
                 let itemAux = { itemCotacao: [] };
 
-                self.dsItemCotacao.getRecordsAsObjects().forEach(function (ob) {
+                let registros = (itensSelecionados && itensSelecionados.length)
+                    ? itensSelecionados
+                    : self.dsItemCotacao.getRecordsAsObjects();
+
+                registros.forEach(function (ob) {
                     let newValue;
                     for (let [key, value] of Object.entries(ob)) {
                         newValue = {};
@@ -3198,6 +3204,41 @@ angular
             function chamaResumoItensFornecedor(records) {
                 self.indiceViewStack = GERAR_PEDIDO;
                 self.resumoItensAprovados.chamaResumoItensFornecedor(records);
+            }
+
+            // Envia os itens selecionados + o tipo de negociacao (popup) para o servico geraPedidoSP.
+            function geraPedidoNovoServico(itensSelecionados) {
+                openParametrosGeraPedidoPopup().then(function (result) {
+                    // Monta os itens no mesmo formato usado por resumoItensAprovadosFornecedores.
+                    // O service usa esses itens apenas para identificar as cotacoes (NUMCOTACAO).
+                    var parametros = getXmlItensCotacao(itensSelecionados);
+
+                    // Parametro do popup (nivel raiz do request) — equivale ao antigo
+                    // contextoAcao.getParam("CODTIPVENDA") da acao de botao.
+                    parametros.CODTIPVENDA = result.psqCodTipVenda;
+
+                    ServiceProxy.callService('geraPedidoSP.geraPedido', parametros)
+                        .then(function (res) {
+                            var msg = ObjectUtils.getProperty(res, 'responseBody.MENSAGEM');
+                            MessageUtils.showInfo(MessageUtils.TITLE_INFORMATION, msg || i18n("cot_msgGeraPedidoSucesso"));
+                            self.dsItemCotacao.refresh();
+                        })
+                        .catch(function (err) {
+                            MessageUtils.showError(MessageUtils.TITLE_ERROR, "" + err);
+                        });
+                });
+            }
+
+            function openParametrosGeraPedidoPopup() {
+                return SanPopup.open({
+                    title: i18n('Cotacao.RotinaCotacao.titlePopupParametrosGeraPedido'),
+                    templateUrl: 'html5/RotinaCotacao/popup/PopupParametrosGeraPedido.tpl.html',
+                    controller: 'PopupParametrosGeraPedidoController',
+                    controllerAs: 'ctrl',
+                    size: 'md',
+                    height: '450',
+                    okBtnLabel: i18n('Geral.confirmar')
+                }).result;
             }
 
 
