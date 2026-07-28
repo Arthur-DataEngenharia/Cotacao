@@ -19,7 +19,6 @@ import br.com.sankhya.studio.annotations.enums.EJBTransactionType;
 import br.com.sankhya.studio.persistence.Transactional;
 import br.com.sankhya.ws.ServiceContext;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.sankhya.util.BigDecimalUtil;
@@ -32,7 +31,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -42,9 +40,11 @@ import java.util.Set;
  * Adaptado da acao de botao GeraPedidoCompraCotacaoHomolog (br.com.data.comercial.acoes),
  * substituindo os utilitarios do projeto "dars" (AcessoBanco / ErroUtils / Utilitarios)
  * por equivalentes com a API padrao Sankhya, e trocando a origem dos dados:
- *   - contextoAcao.getLinhas()          -> NUMCOTACAO extraidos dos itens selecionados (getXmlItensCotacao)
- *   - contextoAcao.getParam("CODTIPVENDA") -> parametro CODTIPVENDA (nivel raiz do JSON, vindo do popup)
+ *   - contextoAcao.getLinhas()          -> array NUMCOTACOES (cotacoes das linhas selecionadas)
+ *   - contextoAcao.getParam("CODTIPVENDA") -> parametro CODTIPVENDA
  *   - contextoAcao.setMensagemRetorno() -> ctx.setJsonResponse()
+ *
+ * Corpo JSON (plano) esperado: { "CODTIPVENDA": "5", "NUMCOTACOES": ["123","124"] }
  */
 @Service(serviceName = "geraPedidoSP", transactionType = EJBTransactionType.Supports)
 public class geraPedidoController {
@@ -76,21 +76,21 @@ public class geraPedidoController {
             disparaErro("Informe o tipo de negociacao (CODTIPVENDA).");
         }
 
-        // Itens selecionados enviados pelo front (getXmlItensCotacao) -> cotacoes a processar
-        List<JsonObject> itensSel = extrairItens(req);
-        if (itensSel.isEmpty()) {
-            disparaErro("Nenhum item selecionado.");
-        }
-
+        // NUMCOTACOES das linhas selecionadas (JSON plano enviado pelo front) -> cotacoes a processar
         Set<BigDecimal> numCotacoes = new LinkedHashSet<>();
-        for (JsonObject it : itensSel) {
-            String nc = valor(it, "NUMCOTACAO");
-            if (nc != null) {
-                numCotacoes.add(new BigDecimal(nc));
+        JsonElement numCotacoesEl = req.get("NUMCOTACOES");
+        if (numCotacoesEl != null && numCotacoesEl.isJsonArray()) {
+            for (JsonElement e : numCotacoesEl.getAsJsonArray()) {
+                if (e != null && !e.isJsonNull()) {
+                    String s = e.getAsString();
+                    if (s != null && !s.trim().isEmpty()) {
+                        numCotacoes.add(new BigDecimal(s.trim()));
+                    }
+                }
             }
         }
         if (numCotacoes.isEmpty()) {
-            disparaErro("Itens selecionados sem NUMCOTACAO.");
+            disparaErro("Nenhuma cotacao informada.");
         }
 
         JdbcWrapper jdbc = EntityFacadeFactory.getDWFFacade().getJdbcWrapper();
@@ -430,59 +430,14 @@ public class geraPedidoController {
     }
 
     // ------------------------------------------------------------------
-    // Leitura do JSON (itens do getXmlItensCotacao + parametros do popup)
+    // Leitura do JSON (payload plano enviado pelo front)
     // ------------------------------------------------------------------
 
-    /** Extrai a lista de itens de itensCotacao.itemCotacao, tolerando item unico ou array. */
-    private List<JsonObject> extrairItens(JsonObject req) {
-        List<JsonObject> lista = new ArrayList<>();
-        JsonElement itensCotacaoEl = req.get("itensCotacao");
-        if (itensCotacaoEl == null || !itensCotacaoEl.isJsonObject()) {
-            return lista;
-        }
-        JsonElement itemEl = itensCotacaoEl.getAsJsonObject().get("itemCotacao");
-        if (itemEl == null || itemEl.isJsonNull()) {
-            return lista;
-        }
-        if (itemEl.isJsonArray()) {
-            JsonArray arr = itemEl.getAsJsonArray();
-            for (JsonElement e : arr) {
-                if (e.isJsonObject()) {
-                    lista.add(e.getAsJsonObject());
-                }
-            }
-        } else if (itemEl.isJsonObject()) {
-            lista.add(itemEl.getAsJsonObject());
-        }
-        return lista;
-    }
-
-    /** Le um campo do item no formato { "$": "valor" }; retorna null se ausente/vazio. */
-    private String valor(JsonObject item, String campo) {
-        JsonElement el = item.get(campo);
-        if (el == null || el.isJsonNull()) {
-            return null;
-        }
-        if (el.isJsonObject()) {
-            JsonElement cifrao = el.getAsJsonObject().get("$");
-            if (cifrao == null || cifrao.isJsonNull()) {
-                return null;
-            }
-            String s = cifrao.getAsString();
-            return (s == null || s.trim().isEmpty()) ? null : s;
-        }
-        String s = el.getAsString();
-        return (s == null || s.trim().isEmpty()) ? null : s;
-    }
-
-    /** Le um parametro de nivel raiz (valor simples enviado pelo popup). */
+    /** Le um parametro de nivel raiz (valor simples). Retorna null se ausente/vazio. */
     private String asString(JsonObject req, String chave) {
         JsonElement el = req.get(chave);
-        if (el == null || el.isJsonNull()) {
+        if (el == null || el.isJsonNull() || el.isJsonObject() || el.isJsonArray()) {
             return null;
-        }
-        if (el.isJsonObject()) {
-            return valor(req, chave);
         }
         String s = el.getAsString();
         return (s == null || s.trim().isEmpty()) ? null : s;
