@@ -1,0 +1,9 @@
+<sk-simple-form>
+    <sk-simple-item sk-label="Motivo de Cancelamento" sk-width="100%" sk-required="true">
+		<sk-pesquisa-input sk-field-name="CODIGO" sk-entity-name="MotivoCancCotacao" sk-value="ctrl.pesqMotivoCanc" sk-entity-change="ctrl.notifyChangeMotivo()"></sk-pesquisa-input>
+    </sk-simple-item>
+    
+    <sk-simple-item sk-label="Cotacao.RotinaCotacao.observacaoPopUpCanc" sk-width="100%">
+		<sk-text-area sk-height="190px" sk-value="ctrl.observacaoMotivoCanc" sk-change="ctrl.notifyChange()" flex></sk-text-area>
+    </sk-simple-item>
+</sk-simple-form>

@@ -1,0 +1,46 @@
+<sk-dataset id="dsUltimasCompras" sk-dataset-created="ctrl.createDataSet(dataset)" sk-standalone>
+    <sk-dsfield-md name="NUMNOTA" user-type="I" description="cot_gridHeaderNroNota" sk-i18n>
+    </sk-dsfield-md>
+    <sk-dsfield-md name="CODPARC" user-type="I" description="cot_gridHeaderCodParc" sk-i18n>
+    </sk-dsfield-md>
+    <sk-dsfield-md name="NOMEPARC" user-type="S" description="cot_gridHeaderNomeParc" sk-i18n></sk-dsfield-md>
+    <sk-dsfield-md name="QTDE" user-type="F" description="cot_gridHeaderQtde" sk-i18n></sk-dsfield-md>
+    <sk-dsfield-md name="DTNEG" user-type="D" description="cot_gridHeaderDtNeg" sk-i18n></sk-dsfield-md>
+    <sk-dsfield-md name="PRECO" user-type="F" description="cot_gridHeaderPreco" sk-i18n></sk-dsfield-md>
+    <sk-dsfield-md name="VARIACAO" user-type="S" description="cot_gridHeaderVariacaoPreco" sk-i18n></sk-dsfield-md>
+</sk-dataset>
+<sk-vbox flex gap="5">
+    <sk-hbox sk-width="100%" layout-align="start center" GAP="5">
+        <label class="text-bold">
+            <sk-translate>cot_labelFiltroCompras</sk-translate>
+        </label>
+        <sk-combobox sk-value="ctrl.cmbTipoPeriodo" sk-width="150px" sk-options="ctrl.cmbTipoPeriodoOptions"
+            sk-change="ctrl.cmbTipoPeriodoChange()" sk-allow-null="false">
+        </sk-combobox>
+        <sk-text-input ng-if="ctrl.txtQtdDiasVisible" sk-restrict="0-9" sk-size="7" sk-width="100px"
+            sk-value="ctrl.txtQtdDias">
+        </sk-text-input>
+        <sk-date-input sk-value="ctrl.dtDataInicio" ng-if="ctrl.dtDataInicioVisible" sk-width="100px"></sk-date-input>
+
+        <button class="btn btn-default" tooltip="Geral.buttonPesquisar" sk-height="25px" ng-click="ctrl.buscar()" sk-i18n>
+            <span sk-translate>Geral.buttonAplicar</span></button>
+    </sk-hbox>
+    <sk-hbox sk-width="100%">
+        <sk-grid-config sk-config-name="{{::ctrl.resourceIDGrade}}">
+        </sk-grid-config>
+        <sk-hbox sk-width="100%" layout-align="end center">
+            <sk-rows-counter sk-dataset="ctrl.dsUltimasCompras"></sk-rows-counter>
+        </sk-hbox>
+    </sk-hbox>
+    <sk-hbox flex>
+        <sk-datagrid sk-dataset="ctrl.dsUltimasCompras" sk-config-name="{{::ctrl.resourceIDGrade}}" flex>
+            <sk-datagrid-custom-column sk-field-name="NUMNOTA"></sk-datagrid-custom-column>
+            <sk-datagrid-custom-column sk-field-name="CODPARC"></sk-datagrid-custom-column>
+            <sk-datagrid-custom-column sk-field-name="NOMEPARC"></sk-datagrid-custom-column>
+            <sk-datagrid-custom-column sk-field-name="QTDE"></sk-datagrid-custom-column>
+            <sk-datagrid-custom-column sk-field-name="DTNEG"></sk-datagrid-custom-column>
+            <sk-datagrid-custom-column sk-field-name="PRECO"></sk-datagrid-custom-column>
+            <sk-datagrid-custom-column sk-field-name="VARIACAO"></sk-datagrid-custom-column>
+        </sk-datagrid>
+    </sk-hbox>
+</sk-vbox>

@@ -1,0 +1,19 @@
+<sk-vbox flex>
+    <sk-text-input sk-value="ctrl.txtSearchField" ng-keyup="ctrl.onKeydown()">
+    </sk-text-input>
+    <sk-draggable-list class="listAvailableFields" id="listAvailableFields" 
+        sk-src-data="ctrl.dpAvailableFields"
+        sk-selected-items="ctrl.itemSelectedList"
+        ng-dblclick="ctrl.addToForm()"
+        sk-on-change-item="ctrl.onChangeDraggableItemList(item, positionToInsert)" 
+        sk-drop="ctrl.doDragDrop(event)">
+        <sk-item-tpl>
+            <span ng-bind="item.descricao"></span>
+        </sk-item-tpl>
+    </sk-draggable-list>
+    <sk-hbox sk-width="100%" layout-align="end center">
+        <button default class="btn btn-default" ng-click="ctrl.addToForm()">
+            <span style="max-width: 95%; text-align: center; white-space: normal;">{{ctrl.labelBtn}}</span>
+        </button>
+    </sk-hbox>
+</sk-vbox>

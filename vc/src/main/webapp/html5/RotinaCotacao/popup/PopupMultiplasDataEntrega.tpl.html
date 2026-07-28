@@ -1,0 +1,18 @@
+<sk-dataset entity-name="MultiplasDatasEntrega" parent-dataset="ctrl.dsItemCotacao" order-by="SEQUENCIA"
+    sk-dataset-created="ctrl.createDataSet(dataset)" sk-standalone>
+    <sk-field pattern="*"></sk-field>
+</sk-dataset>
+<sk-vbox id="painelEdicao" flex gap="5">
+
+    <sk-navigator dataset="ctrl.dsMultiplasDatas" sk-show-copy-button="false" sk-show-refresh-button="false"
+        sk-show-cancel-button="false" sk-show-navigation="false" sk-add-function="ctrl.abreInclusao()" sk-compact-btn-add>
+    </sk-navigator>
+
+    <!--sk-form sk-width="250px" ng-if="ctrl.inserirMultiplasDatas" sk-dataset="ctrl.dsMultiplasDatas" sk-only-custom columns="1" flex>
+        <sk-form-custom-item sk-field-name="DATAENTREGA"></sk-form-custom-item>
+        <sk-form-custom-item sk-field-name="QTDENTREGA"></sk-form-custom-item>
+    </!--sk-form-->
+
+    <sk-datagrid sk-dataset="ctrl.dsMultiplasDatas" sk-datagrid-interceptor="ctrl" flex></sk-datagrid>
+    <div id="lblFooter" ng-bind="ctrl.footerHtmlText"></label>    
+</sk-vbox>

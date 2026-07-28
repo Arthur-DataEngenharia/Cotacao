@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<metadados xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="../.gradle/metadados.xsd">
+
+    <!--
+        Para mais informações sobre a criação e utilização do Menu,
+        consulte a documentação oficial da Sankhya em: https://developer.sankhya.com.br/docs/06_menu
+    -->
+
+    <menu id="data_cotacao" description="Addon Cotação" icon="/$ctx/assets/icon.png">
+
+        <ui id="RotinaCotacaoData" url="/$ctx/RotinaCotacao.xhtml5" description="Processo de Cotação"/>
+
+
+    </menu>
+</metadados>

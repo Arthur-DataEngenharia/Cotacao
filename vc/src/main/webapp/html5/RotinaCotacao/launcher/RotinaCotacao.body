@@ -1,0 +1,40 @@
+<include ignored="true">
+	<configuracaoTela>
+		<config chave="br.com.sankhya.swb.cotacao.rotinas.cotacao" configLoader="br.com.sankhya.cotacao.config.RotinaCotacaoConfigLoader"/>
+		<config chave="br.com.sankhya.swb.cotacao.rotinas.cotacao.filtros.cab"/>
+		<config chave="br.com.sankhya.swb.cotacao.rotinas.cotacao.filtros"/>
+		<config chave="br.com.sankhya.cotacao.modelo.email"/>
+		<config chave="br.com.sankhya.cotacaocancelamento.modelo.email"/>
+	</configuracaoTela>
+	
+	<script type="text/javascript" src="html5/RotinaCotacao/popup/PopupSugestaoFornecedores.controller.js"></script>
+	<script type="text/javascript" src="html5/RotinaCotacao/popup/PopUpCotacaoMoeda.js"></script>
+	<script type="text/javascript" src="html5/RotinaCotacao/util/RotinaCotacaoUtil.service.js"></script>
+	<script type="text/javascript" src="html5/RotinaCotacao/util/RotinaCotacaoInstance.js"></script>
+	<script type="text/javascript" src="html5/RotinaCotacao/popup/PopUpAvailableFields.controller.js"></script>
+	<script type="text/javascript" src="html5/RotinaCotacao/popup/PopupEditDadosCotacao.controller.js"></script>	
+	<script type="text/javascript" src="html5/RotinaCotacao/popup/PopupProdutos.controller.js"></script>	
+	<script type="text/javascript" src="html5/RotinaCotacao/popup/Popupincluir.controller.js"></script>	
+	<script type="text/javascript" src="html5/RotinaCotacao/popup/PopupGerarPedido.controller.js"></script>	
+	<script type="text/javascript" src="html5/RotinaCotacao/popup/PopupProcessaLiberacoes.controller.js"></script>	
+	<script type="text/javascript" src="html5/RotinaCotacao/popup/PopupAprovarFornecedor.controller.js"></script>		
+	<script type="text/javascript" src="html5/RotinaCotacao/popup/PopupUltimasCompras.controller.js"></script>	
+	<script type="text/javascript" src="html5/RotinaCotacao/popup/PopupProdutosEspecificos.controller.js"></script>		
+	<script type="text/javascript" src="html5/RotinaCotacao/popup/PopUpTransferirItens.controller.js"></script>	
+	<script type="text/javascript" src="html5/RotinaCotacao/popup/PopupListaProdutosTransfFornecedor.controller.js"></script>	
+	<script type="text/javascript" src="html5/RotinaCotacao/popup/PopupMultiplasDataEntrega.controller.js"></script>	
+	<script type="text/javascript" src="html5/RotinaCotacao/popup/PopUpEditField.controller.js"></script>	
+	<script type="text/javascript" src="html5/RotinaCotacao/popup/CotacaoDuplicada.controller.js"></script>
+	<script type="text/javascript" src="html5/RotinaCotacao/popup/MotivoCancCotPopup.controller.js"></script>		
+	<script type="text/javascript" src="html5/RotinaCotacao/abas/AbaPesos.controller.js"></script>
+	<script type="text/javascript" src="html5/RotinaCotacao/abas/AbaItensCotacao.controller.js"></script>
+	<script type="text/javascript" src="html5/RotinaCotacao/abas/AbaFornecedores.controller.js"></script>
+	<script type="text/javascript" src="html5/RotinaCotacao/abas/AbaPesosItens.controller.js"></script>	
+	<script type="text/javascript" src="html5/RotinaCotacao/popup/ResumoCalculoImpostoLote.controller.js"></script>
+	<script type="text/javascript" src="html5/RotinaCotacao/containers/ContainerModoCabecalho.component.js"></script>
+	<script type="text/javascript" src="html5/RotinaCotacao/containers/GerarPedido.component.js"></script>
+	<script type="text/javascript" src="html5/RotinaCotacao/containers/ContainerModoItens.component.js"></script>	
+	<script type="text/javascript" src="html5/RotinaCotacao/containers/Preferencias.component.js"></script>				
+	<script type="text/javascript" src="html5/RotinaCotacao/containers/ColetaManual.component.js"></script>				
+	<script type="text/javascript" src="html5/RotinaCotacao/containers/PainelFiltros.component.js"></script>					
+</include>

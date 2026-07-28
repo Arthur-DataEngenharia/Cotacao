@@ -1,0 +1,62 @@
+<sk-vbox flex sk-padding-top="20px" sk-padding-bottom="20px" sk-padding-right="20px" sk-padding-left="20px">
+    <sk-simple-form sk-columns="1" verticalGap="15" id="frmPedido">
+        <sk-simple-item sk-width="100%" sk-label="cot_labelEmpresa" required="true">
+            <sk-hbox sk-width="100%">
+                <sk-combobox sk-value="ctrl.cmbUsaEmpresaValue" sk-options="ctrl.cmbUsaEmpresa"
+                             sk-change="ctrl.cmbUsoChange(ctrl.pesqEmpresaEnabled,ctrl.cmbUsaEmpresaValue,'CODEMPRESA')">
+                </sk-combobox>
+                <sk-pesquisa-input sk-enabled="ctrl.pesqEmpresaEnabled && !ctrl.isProcessing()" sk-width="100%" sk-value="ctrl.pesqEmpresa"
+                                   sk-entity-name="Empresa" fieldName="CODEMP" enabled="false"
+                                   sk-enviroment-criteria="ctrl.getPesqEmpresaCriteria()"></sk-pesquisa-input>
+            </sk-hbox>
+        </sk-simple-item>
+        <sk-simple-item sk-width="100%" sk-label="cot_labelTop" required="true">
+            <sk-hbox sk-width="100%">
+                <sk-combobox sk-value="ctrl.cmbUsaTopValue" sk-options="ctrl.cmbUsaTop" visible="true" sk-enabled="false">
+                </sk-combobox>
+                <sk-pesquisa-input sk-enabled="ctrl.pesqTopEnabled && !ctrl.isProcessing()" sk-width="100%" sk-value="ctrl.pesqTop"
+                                   sk-entity-name="TipoOperacao" sk-enviroment-criteria="ctrl.getPesqTOPCriteria()"></sk-pesquisa-input>
+            </sk-hbox>
+        </sk-simple-item>
+        <sk-simple-item sk-width="100%" sk-label="cot_labelTipoNeg" required="true">
+            <sk-hbox sk-width="100%">
+                <sk-combobox sk-value="ctrl.cmbUsaTipoNegValue" sk-options="ctrl.cmbUsaTipoNeg"
+                             sk-change="ctrl.cmbUsoChange(ctrl.pesqTipoNegEnabled,ctrl.cmbUsaTipoNegValue,'CODTIPOVENDA')">
+                </sk-combobox>
+                <sk-pesquisa-input sk-enabled="ctrl.pesqTipoNegEnabled && !ctrl.isProcessing()" sk-width="100%" sk-value="ctrl.pesqTipoNeg"
+                                   sk-entity-name="TipoNegociacao" enabled="false">
+                </sk-pesquisa-input>
+            </sk-hbox>
+        </sk-simple-item>
+        <sk-simple-item sk-width="100%" sk-label="cot_labelCentCus" id="frmItemCentCus">
+            <sk-hbox sk-width="100%">
+                <sk-combobox sk-value="ctrl.cmbUsaCentCusValue" sk-options="ctrl.cmbUsaCentCus"
+                             sk-change="ctrl.cmbUsoChange(ctrl.pesqCentCusEnabled,ctrl.cmbUsaCentCusValue,'CODCENCUS')">
+                </sk-combobox>
+                <sk-pesquisa-input sk-width="100%" sk-enabled="ctrl.pesqCentCusEnabled && !ctrl.isProcessing()" sk-value="ctrl.pesqCentCus"
+                                   sk-entity-name="CentroResultado" fieldName="CODCENCUS" enabled="false" somenteAnalitico="true">
+                </sk-pesquisa-input>
+            </sk-hbox>
+        </sk-simple-item>
+        <sk-simple-item sk-width="100%" sk-label="cot_labelNatureza" id="frmItemNat">
+            <sk-hbox sk-width="100%">
+                <sk-combobox sk-value="ctrl.cmbUsaNatValue" sk-options="ctrl.cmbUsaNat"
+                             sk-change="ctrl.cmbUsoChange(ctrl.pesqNatEnabled, ctrl.cmbUsaNatValue,'CODNAT')">
+                </sk-combobox>
+
+                <sk-pesquisa-input sk-enabled="ctrl.pesqNatEnabled && !ctrl.isProcessing()" sk-width="100%" sk-value="ctrl.pesqNat"
+                                   sk-entity-name="Natureza" enabled="false" somenteAnalitico="true"></sk-pesquisa-input>
+            </sk-hbox>
+        </sk-simple-item>
+        <sk-simple-item sk-width="100%" sk-label="cot_labelProjeto">
+            <sk-hbox sk-width="100%">
+                <sk-combobox sk-value="ctrl.cmbUsaProjValue" sk-options="ctrl.cmbUsaProj"
+                             sk-change="ctrl.cmbUsoChange(ctrl.pesqProjEnabled, ctrl.cmbUsaProjValue,'CODPROJETO')">
+                </sk-combobox>
+                <sk-pesquisa-input sk-width="100%" sk-enabled="ctrl.pesqProjEnabled && !ctrl.isProcessing()" sk-value="ctrl.pesqProj"
+                                   sk-entity-name="Projeto" enabled="false" somenteAnalitico="true">
+                </sk-pesquisa-input>
+            </sk-hbox>
+        </sk-simple-item>
+    </sk-simple-form>
+</sk-vbox>

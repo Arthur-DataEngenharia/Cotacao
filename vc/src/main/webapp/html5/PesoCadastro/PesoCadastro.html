@@ -1,0 +1,13 @@
+<sk-application ng-controller="PesoCadastroController as ctrl" >
+    <sk-dynaform sk-pk-listener sk-entity-name="PesoCriterioCotacao"
+                 sk-on-dynaform-loaded="ctrl.onDynaformLoaded(dynaform, dataset)" 
+                 sk-helper-class-name="br.com.sankhya.cotacao.model.helper.PesoCriterioDynaformHelper"
+                 sk-skip-start-page="true"
+                 sk-dynaform-interceptor="ctrl"
+                 sk-form-interceptor="ctrl" 
+                 sk-datagrid-interceptor="ctrl" 
+                 sk-ignore-listener-methods="visitDataSetElement"
+                 sk-hide-tour="true"
+                 sk-resource-id="br.com.sankhya.swb.cotacao.cadastros.pesocriterio">
+    </sk-dynaform>
+</sk-application>

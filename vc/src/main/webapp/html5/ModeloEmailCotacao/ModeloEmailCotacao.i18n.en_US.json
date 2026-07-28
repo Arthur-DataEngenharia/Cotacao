@@ -1,0 +1,35 @@
+{
+  "locale": "en_US",
+  "namespace": "Core.ModeloEmail",
+  "context": "mgecot",
+  "i18nDictionary": [
+    "#cot_emailLblNomeParceiro",
+    "#cot_emailLblRazaoSocial",
+    "#cot_emailLblNomeContato",
+    "#cot_emailLblLinkAcesso",
+    "#cot_emailLblModeloSalvoSucesso",
+    "#cot_emailLblVariaveisEmail",
+    "#cot_emailLblAssuntoEmail",
+    "#cot_emailLblTextoEmail",
+    "#cot_emailLblControleProduto",
+    "#cot_gridPedidosFornDescrEmpresa",
+    "#cot_gridPedidosItensDescrProd",
+    "#cot_labelCodProduto",
+    "#cot_emailLblCodigoProduto",
+    "#cot_emailLblNomeProduto",
+    "#cot_emailLblTipoEmail",
+    "#cot_emailLblTipoEmailNovProd",
+    "#cot_emaillblInserirAssunto",
+    "#cot_emailLblTipoEmailCancProd",
+    "#cot_nomeComprador",
+    "#cot_emailComprador",
+    "#cot_labelNumCotacao"
+  ],
+  "i18nBundles": [],
+  "i18n": {
+    "lblAssunto": "Subject",
+    "conteudo": "Content",
+    "naoExisteVariaveis": "There are no available variables, check the model type.",
+    "tooltipAssunto": "Opens the helper to build the subject of the email template"
+  }
+}

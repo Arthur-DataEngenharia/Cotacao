@@ -1,0 +1,56 @@
+<sk-dataset id="dsParceiro" entity-name="Parceiro" sk-dataset-created="ctrl.onDatasetCreated(dataset)">
+    <sk-field pattern="CODPARC,NOMEPARC,TELEFONE,EMAIL"></sk-field>
+</sk-dataset>
+
+<sk-vbox id="coletaManualPanel" layout="column" flex>
+    <sk-vbox class="high-contrast-panel" sk-height="84px" layout-padding
+        style="height: 84px;border: 1px solid #CCC;margin-left: 6px;margin-right: 6px;margin-top: 3px;border-radius: 6px;">
+        <label id="titleColetaManual" sk-font-size="14" class="text-bold" ng-bind="ctrl.lblColetaManual"></label>
+        <div>
+            <hr sk-margin="5px 0px 5px 0px">
+        </div>
+        <sk-hbox flex>            
+            <button default  small class="btn btn-default btn-sk-sm config back" font-icon="chevron-left" 
+                ng-click="ctrl.voltarFunction()" tooltip="Geral.lblVoltar" sk-i18n></button>
+        </sk-hbox>
+    </sk-vbox>
+
+    <sk-resizable-columns layout="column" flex>
+        <sk-resizable-rows>
+            <div sk-height="300px" style="margin-bottom: 10px;" sk-resizable sk-direction="'bottom'">
+                <sk-vbox layout="column" flex>
+                    <sk-group-container sk-title="Fornecedores" flex>
+
+                        <sk-datagrid sk-dataset="dsParceiro" sk-datagrid-loaded="ctrl.onDatagridLoaded(datagrid)"
+                            sk-datagrid-interceptor="ctrl" sk-allow-multiple-selection="false" sk-editable="false">
+
+                        </sk-datagrid>
+                    </sk-group-container>
+
+                </sk-vbox>
+            </div>
+            <div layout="column" flex>
+                <sk-group-container sk-title="Produtos" style="position: relative;"  layout="column" flex>
+                    <sk-dynaform id="dynaFormColetaItemCotacao" 
+                        sk-entity-name="ColetaItemCotacao"
+                        sk-on-dynaform-loaded="ctrl.onDynaformLoaded(dynaform,dataset)"
+                        sk-on-datagrid-loaded="ctrl.onDatagridLoadedColeta(datagrid)"
+                        sk-dynaform-interceptor="ctrl"
+                        sk-datagrid-interceptor="ctrl"
+                        sk-helper-class-name="br.com.sankhya.cotacao.model.helper.ColetaItemCotacaoManualHelper"
+                        sk-resource-id="br.com.sankhya.cotacao.rotina.dynaFormColetaItemCotacao"
+                        sk-hide-entity-card="true" 
+                        sk-skip-start-page="true" 
+                        sk-show-filter="false"
+                        sk-hide-button-favorite="true" 
+                        sk-hide-entity-search-field="true"
+                        class="dynaformColetaManual" 
+                        sk-form-interceptor="ctrl" 
+                        style="position: absolute; overflow: auto" 
+                        flex>
+                    </sk-dynaform>
+                </sk-group-container>
+            </div>
+        </sk-resizable-rows>
+    </sk-resizable-columns>
+</sk-vbox>

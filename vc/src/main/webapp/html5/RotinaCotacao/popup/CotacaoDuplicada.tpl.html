@@ -1,0 +1,58 @@
+<sk-dataset
+    sk-uid="dsCotacaoDuplicada"
+    sk-standalone
+    sk-dataset-created="ctrl.onDatasetCreated(dataset)"
+    sk-refresh-handler="ctrl.refreshHandler(request)"
+>
+    <sk-dsfield-md sk-i18n description="Cotacao.RotinaCotacao.lblCotacaoOrigem" name="cotacaoOrig"></sk-dsfield-md>
+    <sk-dsfield-md  name="cotacaoDest"></sk-dsfield-md>
+</sk-dataset>
+
+<sk-vbox sk-width="100%" sk-height="100%" sk-padding="5px" id="CotacaoDuplicada">
+    <sk-i18n sk-margin-bottom="10px"></sk-i18n>
+    <sk-datagrid
+        sk-uid="dgCotacaoDuplicada"
+        sk-dataset="ctrl.ds"
+        sk-disable-tour="true"
+        sk-editable="false"
+        sk-allow-multiple-selection="false"
+        sk-width="100%"
+        sk-height="100%"
+        sk-on-dbl-click= "ctrl.onDblClickGridPendentes()"
+    >
+        <sk-datagrid-custom-column sk-field-name="cotacaoOrig" />
+        <sk-datagrid-custom-column sk-description="{{ctrl.colDestino}}" sk-field-name="cotacaoDest" />
+        <sk-cell-renderer>
+            <script columns="cotacaoDest">
+                function renderer() {
+                    return {
+                        getGui: function (params, originalItem, scope, utils) {
+                            scope.onBtnClick = function () {
+                                scope.$parent.ctrl.openDocumento(params.data);
+                            };
+
+                            var icon = utils.createDirective('sk-icon', { 'font-icon': 'arrow-right' }, scope);
+                            icon.css('display', 'flex');
+                            icon.css('color', '#ddc340');
+
+                            var button = utils.createDirective('button', { 'ng-click': 'onBtnClick()' }, scope);
+                            button[0].appendChild(icon[0]);
+                            button.css('background', 'none');
+                            button.css('border', 'none');
+
+                            var span = utils.createDirective('span', null, scope);
+                            span[0].innerText = params.value;
+                            span.css('margin', 'auto 0');
+
+                            var eGui = utils.createDirective('sk-hbox', { 'sk-width': '100%' }, scope);
+                            eGui[0].appendChild(span[0]);
+                            eGui[0].appendChild(button[0]);
+
+                            return eGui;
+                        }
+                    };
+                }
+            </script>
+        </sk-cell-renderer>
+    </sk-datagrid>
+</sk-vbox>

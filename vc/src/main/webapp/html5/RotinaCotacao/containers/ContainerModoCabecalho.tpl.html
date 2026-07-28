@@ -1,0 +1,100 @@
+<sk-viewstack sk-selected-index="ctrl.indiceViewStack" layout="column" sk-creation-policy="all" flex>
+    <sk-viewstack-content class="textarea-plus" layout="column" flex>
+        <sk-dynaform sk-entity-name="CabecalhoCotacao" 
+                     sk-on-dynaform-loaded="ctrl.onDynaformLoaded(dynaform,dataset)"
+                     sk-helper-class-name="br.com.sankhya.cotacao.model.helper.CabecalhoCotacaoHelper"
+                     sk-recursive-helper="true"
+                     sk-other-options-loader="ctrl.buildDynaOptions(dynaform)" 
+                     sk-dynaform-interceptor="ctrl"
+                     sk-hide-entity-card="true" 
+                     sk-resource-id="{{ctrl.resourceID + '.personalizedFilter.cabCotacao'}}"
+                     sk-filter-panel-interceptor="ctrl" 
+                     sk-skip-start-page="true" 
+                     sk-custom-tabs-loader="ctrl.customTabsLoader(entityName)"
+                     sk-hide-button-recents="true"
+                     sk-hide-entity-search-field="true"
+                     sk-hide-button-favorite="true"
+                     sk-on-datagrid-loaded="ctrl.onDataGridLoaded(datagrid)"
+                     sk-creation-policy="all"
+                     sk-action-button-resource-id="{{ctrl.resourceID}}">
+                    <dynaform-cabecalho-cotacao>
+
+                        <sk-custom-filter-panel>
+                            <sk-painel-filtros-cotacao id="painelFiltro" 
+                                                       data-set="ctrl.dsCabCotacao"
+                                                       callback-filter="ctrl.filtrarCotacao" 
+                                                       id-personalized-filter="personalizedFilter.cabCotacao"
+                                                       id-save-filter="filtros.cab" is-cabecalho="true"
+                                                       on-content-created="ctrl.onFilterCreated($instance)">
+                            </sk-painel-filtros-cotacao>
+                        </sk-custom-filter-panel>
+                        
+                        <sk-left-top-bar>
+                            <sk-hbox gap="5">
+                                <button tooltip="Cotacao.RotinaCotacao.cot_ttEnviarProdutosSelecionados"
+                                        ng-click="ctrl.carregaPreferencias(ctrl.enviarProdutosPortal)"
+                                        tooltip-placement="bottom"
+                                        tooltip-append-to-body="true"
+                                        default sk-i18n>
+                                        <sk-hbox align="center center" gap="5">
+                                            <sk-icon font-icon="envelope" v="2"></sk-icon>
+                                            <span sk-i18n="cot_txtBtnEnviar"></span>
+                                        </sk-hbox>
+                                </button>
+                                <button tooltip="Cotacao.RotinaCotacao.cot_btnAprovar"
+                                        ng-click="ctrl.aprovarMelhorFornecedorProduto()"
+                                        tooltip-placement="bottom"
+                                        tooltip-append-to-body="true"
+                                        default sk-i18n>
+                                        <sk-hbox align="center center" gap="5">
+                                            <sk-icon font-icon="square-check" v="2"></sk-icon>
+                                            <span sk-i18n="cot_labelAprovar"></span>
+                                        </sk-hbox>
+                                </button>
+                                <button tooltip="Cotacao.RotinaCotacao.labelGerarPedidos"
+                                        ng-click="ctrl.gerarPedidos()"
+                                        tooltip-placement="bottom"
+                                        tooltip-append-to-body="true"
+                                        default sk-i18n>
+                                        <sk-hbox align="center center" gap="5">
+                                            <sk-icon font-icon="file-plus" v="2"></sk-icon>
+                                            <span sk-i18n="Cotacao.RotinaCotacao.labelGerarPedidos"></span>
+                                        </sk-hbox>
+                                </button>
+                                <button tooltip="Cotacao.RotinaCotacao.cot_menuItemCancelarCotacao"
+                                        ng-click="ctrl.aprovarCancelamentoDaCotacaoProduto()"
+                                        tooltip-placement="bottom"
+                                        tooltip-append-to-body="true"
+                                        default sk-i18n>
+                                        <sk-hbox align="center center" gap="5">
+                                            <sk-icon sk-font-size="14px" font-icon="circle-remove" v="2"></sk-icon>
+                                            <span sk-i18n="Geral.buttonCancelar"></span>
+                                        </sk-hbox>
+                                </button>
+                            </sk-hbox>
+                        </sk-left-top-bar>
+                    </dynaform-cabecalho-cotacao>
+        </sk-dynaform>
+    </sk-viewstack-content>
+
+    <sk-viewstack-content layout="column" flex>
+        <gerar-pedido id="resumoItensAprovados"  on-content-created="ctrl.onGerarPedidoCreated($instance)" preferencias="ctrl.preferencias"  voltar="ctrl.voltarGerarPedido()" ds-cab-cotacao="ctrl.dsCabCotacao" layout="column" flex>            
+        </gerar-pedido>
+    </sk-viewstack-content>
+
+    <sk-viewstack-content layout="column" flex>
+        <preferencias id="preferencias" sk-width="100%" sk-height="100vh" voltar-function="ctrl.voltarColetaManual()"
+            salvar-preferencias="ctrl.salvarPreferencias()"  close-function="ctrl.fechaPreferencias()" on-content-created="ctrl.onColetaPreferencias($instance)">
+        </preferencias>
+    </sk-viewstack-content>
+    
+    <sk-viewstack-content layout="column" flex>
+        <coleta-manual on-content-created="ctrl.onColetaCreated($instance)" 
+                        ds-cab-cotacao="ctrl.dsCabCotacao"
+                        voltar-function="ctrl.voltarColetaManual()" 
+                        preferencias="ctrl.preferencias" 
+                        layout="column" 
+                        flex>
+        </coleta-manual>
+    </sk-viewstack-content>
+</sk-viewstack>

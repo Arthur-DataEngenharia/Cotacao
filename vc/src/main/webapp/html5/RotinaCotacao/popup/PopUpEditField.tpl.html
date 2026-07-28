@@ -1,0 +1,19 @@
+<sk-simple-form sk-in-line="true">
+    <sk-simple-item sk-label="Cotacao.RotinaCotacao.lblDescricaoPortalOnline" sk-width="100%">
+        <sk-text-input sk-value="ctrl.txtDescriptionField" sk-enabled="false" sk-width="100%"></sk-text-input>
+        <sk-hbox align="end end" sk-margin-top="10px" gap="5" flex>
+            <sk-checkbox id="cbRequired" 
+                         ng-model="ctrl.cbRequired" 
+                         ng-disabled="ctrl.cbProtected"
+                         ng-change="ctrl.disableCheckBox()">
+                        <sk-i18n>Cotacao.RotinaCotacao.lblCampoObrigatorio</sk-i18n>
+            </sk-checkbox>
+            <sk-checkbox id="cbProtected" 
+                        ng-model="ctrl.cbProtected" 
+                        ng-disabled="ctrl.cbRequired"
+                        ng-change="ctrl.disableCheckBox()">
+                        <sk-i18n>Cotacao.RotinaCotacao.lblCampoProtegido</sk-i18n>
+            </sk-checkbox>
+        </sk-hbox>
+    </sk-simple-item>
+</sk-simple-form>

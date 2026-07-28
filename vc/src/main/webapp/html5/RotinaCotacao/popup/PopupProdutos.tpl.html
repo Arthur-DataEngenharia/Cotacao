@@ -1,0 +1,76 @@
+<sk-dataset  sk-refresh-handler="" sk-dataset-created="ctrl.createDataSet(dataset)" sk-standalone>
+    <sk-dsfield-md name="CODPROD" user-type="I" description="Cod. Prod" order="0">
+    </sk-dsfield-md>
+    <sk-dsfield-md name="DESCRPROD" description="Descr. Produto" user-type="S" order="1">
+    </sk-dsfield-md>
+    <sk-dsfield-md name="DESCRVOLUME" description="Unidade" user-type="S" order="2">
+        <sk-options>
+            <sk-option data="S" label="Sim"></sk-option>
+            <sk-option data="N" label="Não"></sk-option>
+        </sk-options>
+    </sk-dsfield-md>
+    <sk-dsfield-md name="CONTROLE" description="Controle" user-type="S" order="3">
+    </sk-dsfield-md>
+    <sk-dsfield-md name="NUMCOTACAO" description="Cotação" user-type="I" order="4">
+    </sk-dsfield-md>
+    <sk-dsfield-md name="CODCONTATO" description="Contato" user-type="I" order="5">
+    </sk-dsfield-md>
+    <sk-dsfield-md name="NOMECONTATO" description="Nome Contato" user-type="S" order="6">
+    </sk-dsfield-md>
+    <sk-dsfield-md name="CODLOCAL" visible="false" description="Local" user-type="I" order="6">
+    </sk-dsfield-md>
+    <sk-dsfield-md name="CABECALHO" visible="false" description="Cabecalho" user-type="S" order="6">
+    </sk-dsfield-md>
+    <sk-dsfield-md name="DIFERENCIADOR" visible="false" description="Diferenciador" user-type="I" order="6">
+    </sk-dsfield-md>
+    <sk-dsfield-md name="STATUSPRODCOT" visible="false" description="Status Produto Cotação" user-type="S" order="6">
+    </sk-dsfield-md>
+</sk-dataset>
+<sk-vbox flex gap="5">
+    <sk-vbox sk-width="100%" layout-align="start center">
+        <sk-hbox id="cabVisualizacao" ng-if="ctrl.cabVisualizacaoVisible">
+            <label fontWeight="bold" ng-bind="ctrl.labelNomeParceiro"></label>
+            <label fontWeight="bold" ng-bind="ctrl.nomeParceiro"></label>
+        </sk-hbox>
+    </sk-vbox>
+    <sk-hbox sk-width="100%" layout-align="start center">
+        <sk-hbox sk-width="100%" horizontalAlign="left">
+            <sk-grid-config sk-config-name="br.com.sankhya.cotacao.SugestaoFornecedores.dataGridProdutosSugeridos.config"></sk-grid-config>
+        </sk-hbox>
+        <sk-hbox id="cabAdicSubstituir" ng-if="ctrl.cabAdicSubstituirVisible">
+            <sk-simple-form sk-columns="1">
+                <sk-simple-item sk-label="cot_labelNovoFornecedor" sk-required="true">
+                    <sk-pesquisa-input sk-entity-name="Parceiro" sk-width="400px"
+                        sk-value="ctrl.pesqNovoParceiroValue" sk-description-field-name="NOMEPARC" sk-field-name="CODPARC"
+                        sk-enviroment-criteria="ctrl.enviromentCriteria()" >
+                    </sk-pesquisa-input>
+                </sk-simple-item>
+            </sk-simple-form>            
+        </sk-hbox>
+        <sk-hbox width="100%" layout-align="end center">
+            <sk-rows-counter sk-dataset="ctrl.dsProdutosSugeridos"></sk-rows-counter>
+        </sk-hbox>
+    </sk-hbox>
+    <sk-hbox flex>
+        <sk-datagrid id="dataGridProdutosSugeridos" 
+            sk-config-name="br.com.sankhya.cotacao.SugestaoFornecedores.dataGridProdutosSugeridos.config"
+            sk-dataset="ctrl.dsProdutosSugeridos" flex
+            sk-hide-cbx-column="false"></sk-datagrid>
+    </sk-hbox>
+    <div class="modal-footer" >
+        <div class="modal-footer-right">
+            <button default  sk-i18n class="btn btn-default" ng-if="ctrl.btnOkVisible" ng-click="ctrl.closeMe()">
+                cot_txtBtnOk
+            </button>
+            <button default sk-i18n class="btn btn-default" ng-if="ctrl.btnCancelarVisible" ng-click="ctrl.closeMe()">
+                Geral.buttonCancelar
+            </button>
+            <button default sk-i18n class="btn btn-default" ng-if="ctrl.btnConcluirAdicaoVisible"  ng-click="ctrl.adicionarFornecedor()">
+                cot_txtBtnConcluir
+            </button>
+            <button default sk-i18n  class="btn btn-default" ng-if="ctrl.btnConcluirSubstituicaoVisible"  ng-click="ctrl.substituirFornecedor()">
+                cot_txtBtnConcluir
+            </button>
+        </div>
+    </div>                
+</sk-vbox>

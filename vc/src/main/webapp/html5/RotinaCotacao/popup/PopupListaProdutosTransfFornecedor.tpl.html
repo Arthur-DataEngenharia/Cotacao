@@ -1,0 +1,41 @@
+<sk-dataset id="dsProdutos" sk-dataset-created="ctrl.createDataSet(dataset)" sk-standalone>
+    <sk-dsfield-md name="CODPROD" name="NOME" user-type="I" description="Cod. Prod" sk-i18n>
+    </sk-dsfield-md>
+    <sk-dsfield-md name="DESCRPROD" user-type="S" description="Desc. Produto" sk-i18n></sk-dsfield-md>
+    <sk-dsfield-md name="DESCRVOL" user-type="S" description="Desc. Unidade" sk-i18n></sk-dsfield-md>
+    <sk-dsfield-md name="CONTROLE" user-type="S" description="Desc. Unidade" sk-i18n></sk-dsfield-md>
+    <sk-dsfield-md name="NUMCOTACAO" user-type="I" description="Controle" sk-i18n></sk-dsfield-md>
+    <sk-dsfield-md name="PRECO" user-type="F" description="Cotação" sk-i18n></sk-dsfield-md>
+    <sk-dsfield-md name="QTDCOTADA" user-type="I" description="cot_gridPedidosFornNomeParc" sk-i18n></sk-dsfield-md>
+</sk-dataset>
+
+<sk-vbox flex gap="5">
+    <sk-vbox sk-width="100%" layout-align="start center">
+        <sk-hbox id="cabVisualizacao">
+            <label class="text-bold" id="labelNomeParceiro">
+                <sk-translate>cot_labelNomeParceiroVisualizacao</sk-translate>
+            </label>
+            <label class="text-bold" ng-bind="ctrl.nomeParceiro"></label>
+        </sk-hbox>
+    </sk-vbox>
+    <sk-hbox sk-width="100%" horizontalAlign="right" verticalAlign="middle">
+        <sk-hbox sk-width="100%" horizontalAlign="left">
+            <sk-grid-config sk-config-name="{{::ctrl.resourceIDGrade}}">
+            </sk-grid-config>
+        </sk-hbox>
+        <sk-hbox sk-width="100%" layout-align="end center">
+            <sk-rows-counter sk-dataset="ctrl.dsProdutos"></sk-rows-counter>
+        </sk-hbox>
+    </sk-hbox>
+    <sk-hbox sk-width="100%" sk-height="100%">        
+        <sk-datagrid sk-dataset="ctrl.dsProdutos" sk-config-name="{{::ctrl.resourceIDGrade}}">
+            <sk-datagrid-custom-column sk-field-name="CODPROD"></sk-datagrid-custom-column>
+            <sk-datagrid-custom-column sk-field-name="DESCRPROD"></sk-datagrid-custom-column>
+            <sk-datagrid-custom-column sk-field-name="DESCRVOL"></sk-datagrid-custom-column>
+            <sk-datagrid-custom-column sk-field-name="CONTROLE"></sk-datagrid-custom-column>
+            <sk-datagrid-custom-column sk-field-name="NUMCOTACAO"></sk-datagrid-custom-column>
+            <sk-datagrid-custom-column sk-field-name="PRECO"></sk-datagrid-custom-column>
+            <sk-datagrid-custom-column sk-field-name="QTDCOTADA"></sk-datagrid-custom-column>
+        </sk-datagrid>
+    </sk-hbox>
+</sk-vbox>

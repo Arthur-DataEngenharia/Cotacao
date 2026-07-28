@@ -1,0 +1,20 @@
+<sk-dataset entity-name="ColetaItemCotacao" sk-dataset-created="ctrl.createDataSet(dataset)" >
+    <sk-field pattern="CODPARC,SITUACAO,DHENTREGA,PRECO,PERCACRESC,VLRACRESC,PERCDESC,VLRDESC,ALIQIPI,IPI,ALIQICMS,ICMS,VLRSUBST,TAXAJURO,FRETE,OUTROS"></sk-field>
+</sk-dataset>
+
+
+<sk-vbox sk-width="100%" sk-height="100%">
+    <sk-hbox sk-width="100%" class="high-contrast-panel" sk-margin-bottom="2px" sk-margin-left="2px"
+        sk-margin-right="2px" sk-margin-top="2px">
+        <sk-hbox width="100%" layout-align="start center">
+            <sk-grid-config sk-config-name="{{::ctrl.resourceIDGrade }}"></sk-grid-config>
+        </sk-hbox>
+        <sk-hbox sk-width="100%" layout-align="end center" horizontalAlign="right">
+            <sk-rows-counter sk-dataset="ctrl.dsSelecaoFornecedor"></sk-rows-counter>
+        </sk-hbox>
+    </sk-hbox>
+
+    <sk-datagrid id="gridFornecedores" sk-width="100%" sk-height="100%" flex sk-config-name="{{::ctrl.resourceIDGrade}}"
+        sk-allow-multiple-selection="false" sk-editable="false" sk-dataset="ctrl.dsSelecaoFornecedor">
+    </sk-datagrid>
+</sk-vbox>

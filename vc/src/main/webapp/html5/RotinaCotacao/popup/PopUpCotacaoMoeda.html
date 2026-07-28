@@ -1,0 +1,23 @@
+<sk-vbox flex>
+    <sk-simple-form sk-in-line="true">
+        <sk-simple-item i18n sk-label="Cotacao.RotinaCotacao.lblCodigo">
+            <sk-pesquisa-input sk-entity-change="ctrl.refreshDataSet()"
+                               sk-entity-name="Moeda"
+                               sk-enabled="ctrl.pesqMoeda.enabled"
+                               sk-value="ctrl.pesqMoeda.value">
+            </sk-pesquisa-input>
+        </sk-simple-item>
+    </sk-simple-form>
+    
+    <sk-dynaform
+        sk-entity-name="CotacaoMoeda"
+        sk-on-dynaform-loaded="ctrl.onDynaformLoad(dynaform, dataset)"
+        sk-dynaform-interceptor="ctrl"
+        sk-datagrid-interceptor="ctrl"
+        sk-hide-entity-card="false"
+        sk-default-mode="detail"
+        sk-popup-mode="true"
+        sk-show-filter="true"
+        sk-resource-id="ctrl.resourceId">
+    </sk-dynaform>
+</sk-vbox>

@@ -1,0 +1,43 @@
+<sk-dataset id="dsFornecedores" sk-standalone sk-dataset-created="ctrl.onDatasetCreated(dataset)"
+    sk-refresh-handler="ctrl.refreshHandler(request)" sk-save-handler="ctrl.save(request)"
+    sk-remove-handler="ctrl.remove(request)">
+    <sk-dsfield-md width="100" name="CODPARC" user-type="I" description="cot_gridPedidosFornCodParc" sk-i18n>
+    </sk-dsfield-md>
+    <sk-dsfield-md width="150" name="NOMEPARC" user-type="S" description="cot_gridPedidosFornNomeParc" sk-i18n>
+    </sk-dsfield-md>
+    <sk-dsfield-md width="100" name="CODCONTATO" user-type="I" required="false" description="cot_lblContato" sk-i18n>
+    </sk-dsfield-md>
+    <sk-dsfield-md width="150" name="NOMECONTATO" user-type="S" required description="cot_lblNomeContato" sk-i18n>
+    </sk-dsfield-md>
+</sk-dataset>
+
+<sk-vbox id="painelFinanceiro" flex>
+    <sk-double-face-panel id="dbfForn" sk-dataset="ctrl.dsFornecedores" sk-double-face-panel-created="ctrl.skDoubleFacePanelCreated(doubleFacePanel)" sk-default-face-index="GRID_FACE" sk-on-change-face="ctrl.skOnChangeFace()" layout flex>
+        <sk-top-bar>
+            <sk-navigator dataset="ctrl.dsFornecedores" 
+                          sk-show-copy-button="false"
+                          sk-compact-btn-add="true">
+            </sk-navigator>
+        </sk-top-bar>
+        <sk-face-one>
+            <sk-simple-form sk-columns="1">
+                <sk-simple-item sk-label="cot_lblParceiro" sk-required="true">
+                    <sk-pesquisa-input sk-entity-name="ParceiroFornecedorCotacao" sk-width="400px" sk-dataset="ctrl.dsFornecedores"
+                        sk-value="ctrl.pesqParceiro" sk-description-field-name="NOMEPARC" sk-field-name="CODPARC" 
+                        sk-entity-change="ctrl.afterPopulateParc(item)">
+                    </sk-pesquisa-input>
+                </sk-simple-item>
+                <sk-simple-item sk-label="cot_lblContato">
+                    <sk-pesquisa-input sk-entity-name="Contato" sk-width="400px"  sk-description-field-name="NOMECONTATO" sk-value="ctrl.pesqContato"
+                        sk-field-name="CODCONTATO" sk-dataset="ctrl.dsFornecedores"
+                        sk-enviroment-criteria="ctrl.pesquisaContatoCriteria()"
+                        sk-entity-change="ctrl.afterPopulateContato(item)"></sk-pesquisa-input>
+                </sk-simple-item>
+            </sk-simple-form>
+        </sk-face-one>
+        <sk-face-two>
+            <sk-datagrid id="gridForn" sk-dataset="ctrl.dsFornecedores" flex>
+            </sk-datagrid>
+        </sk-face-two>
+    </sk-double-face-panel>
+</sk-vbox>

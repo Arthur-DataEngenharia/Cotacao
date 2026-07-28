@@ -1,0 +1,253 @@
+<sk-vbox id="preferenciaPanel" gap="5" sk-width="100%" sk-height="100%" flex>
+    <sk-vbox class="high-contrast-panel" sk-height="84px" layout-padding
+        style="height: 84px;border: 1px solid #CCC;margin-left: 6px;margin-right: 6px;margin-top: 3px;border-radius: 6px;">
+        <label id="titleColetaManual" sk-font-size="14" class="text-bold">Preferências</label>
+        <div>
+            <hr sk-margin="5px 0px 5px 0px">
+        </div>
+        <sk-hbox gap="5">
+            <button default small font-icon="chevron-left" ng-click="ctrl.voltarFunction()" tooltip="Geral.lblVoltar" sk-i18n></button>
+            <button default default ng-click="ctrl.save()" tooltip="Geral.buttonSalvar" sk-i18n>
+                Geral.buttonSalvar
+            </button>
+        </sk-hbox>
+    </sk-vbox>
+    <sk-hbox sk-margin-left="10px" style="max-height: 80px;"  flex layout-padding gap="40">
+        <sk-vbox gap="5">
+            <sk-hbox gap="5">
+                <label sk-i18n style="min-width: 270px;">cot_labelCampoModeloNota</label>
+                <sk-pesquisa-input id="pesqNota" 
+                                   sk-width="120px"
+                                   sk-show-description-input="false" 
+                                   sk-entity-name="CabecalhoNotaModelo"
+                                   sk-value="ctrl.modeloSimulacaoCompra" 
+                                   sk-field-name="NUNOTA">
+                </sk-pesquisa-input>
+            </sk-hbox>
+            <sk-checkbox id="cbUltVlrCompra" ng-model="ctrl.visualizaUltimoVlrCompra">
+                <span sk-i18n="cot_lblPreferenciaExibUltVlrCompra"> </span>
+            </sk-checkbox>
+            <sk-hbox align="start center" gap="5">
+                <sk-checkbox id="cbLiberacaoComplem" ng-model="ctrl.liberacaoComplem">
+                    <span sk-i18n="cot_lblAtivarLibCompl"> </span>
+                </sk-checkbox>
+                <sk-help-tip sk-i18n sk-text="cot_helpLibPortalAutomatica"></sk-help-tip>
+            </sk-hbox>
+        </sk-vbox>
+        <sk-vbox gap="5" align="start start" gap="8" style="min-width: 160px;">
+            <sk-checkbox id="cbCustoPreco" ng-model="ctrl.usaCustoPreco">
+                <span sk-i18n="cot_labelCheckCalcCusto"> </span>
+            </sk-checkbox>
+            <sk-checkbox id="cbImpostos" ng-model="ctrl.calculaImpostos">
+                <span sk-i18n="cot_labelCheckCalcImposto"> </span>
+            </sk-checkbox>
+        </sk-vbox>
+        <sk-vbox align="start start" ng-if="ctrl.trabalhaMoeda" gap="8">
+            <sk-checkbox id="cbAtualMoeCalcMelhorFornecedor" ng-model="ctrl.atualMoeCalcMelhorFornecedor">
+                <span>Atualizar valor da moeda ao calcular melhor fornecedor</span>
+            </sk-checkbox>
+            <sk-checkbox id="cbatualMoeGerarPedido" ng-model="ctrl.atualMoeGerarPedido">
+                <span>Atualizar valor da moeda ao gerar pedido</span>
+            </sk-checkbox>
+        </sk-vbox>
+        <sk-vbox align="start start" gap="8">
+            <sk-checkbox id="cbFiltrarContato" ng-model="ctrl.filtrarContato">
+                <span sk-i18n="cot_lblFiltrarContato"> </span>
+            </sk-checkbox>
+            <sk-hbox gap="5">
+                <label class="form-input-label">
+                    <span sk-translate>cot_lblLogoEmpresa</span>
+                </label>
+                <sk-text-input id="txtLogoEmpresa" sk-value="ctrl.urlLogoEmpresa">
+                </sk-text-input>
+            </sk-hbox>
+        </sk-vbox>
+    </sk-hbox>
+    <sk-hbox sk-margin-left="15px" gap="5" align="start center">
+        <label class="text-bold">Configuração do Portal Online</label>
+        <span flex layout-padding>
+            <sk-divider sk-width="100%"></sk-divider>
+        </span>
+    </sk-hbox>
+    <sk-vbox layout-padding sk-height="100%" sk-width="100%"  flex>
+        <sk-vbox layout-padding class="high-contrast-panel" sk-border="1px solid #CCC" sk-background="#f0f0f0" style="border-radius: 6px;" sk-width="100%" sk-height="100%" flex>
+            <div layout-left-padding >
+                <button default ng-click="ctrl.restoreSettings()" tooltip="GridConfig.restaurarPadrao" sk-i18n>GridConfig.restaurarPadrao</button>
+            </div>
+                <sk-resizable-columns sk-margin-left="-20px" flex>
+                    <sk-hbox sk-width="23%" style="min-width: 300px;" sk-resizable sk-direction="'right'" flex>
+                        <sk-vbox layout-padding flex>
+                            <sk-checkbox id="cbExibeHistorico" ng-model="ctrl.exibeHistoricoPortal" sk-margin-bottom="5px">
+                                <span sk-i18n="cot_lblExibirHistorico"> </span>
+                            </sk-checkbox>
+                            <sk-hbox style="display: flex;" sk-margin-top="5px" sk-margin-bottom="5px" layout-align="start center">
+                                <label class="text-bold" sk-margin-right="5px">
+                                    Campos do formulário
+                                </label>
+                                <button  default class="btn btn-default btn-sk-sm" id="btnAddCampo"
+                                    ng-click="ctrl.openPopUpAvaliableFields(ctrl.dpCamposFormulario, 'CpForm')"
+                                    sk-i18n tooltip="Cotacao.RotinaCotacao.lblAdicionarCampo">
+                                    <sk-icon font-icon="plus" v="2"></sk-icon>
+                                </button>
+                                <button default class="btn btn-default btn-sk-sm" id="btnRemCampo"
+                                    sk-i18n tooltip="Cotacao.RotinaCotacao.lblRemoverCampoSelecionado" styleName="removeControlIcon"
+                                    ng-click="ctrl.remCampo(ctrl.itemSelectedListFormulario,ctrl.dpCamposFormulario, ctrl.dpAvailableFormFields)">
+                                    <sk-icon font-icon="minus" v="2"></sk-icon>
+                                </button>
+                                <button default class="btn btn-default btn-sk-sm" sk-i18n tooltip="Cotacao.RotinaCotacao.lblRemoverTodosCamposFormulario"
+                                    styleName="btnBroom" ng-click="ctrl.clearList(ctrl.dpCamposFormulario, 'formulario')">
+                                    <sk-icon font-icon="clean" v="2"></sk-icon>
+                                </button>
+                                <button default class="btn btn-default btn-sk-sm"
+                                       sk-i18n tooltip="Ordenacao.buttonMoverCima" styleName="previousFinderBox"
+                                       ng-click="ctrl.moverCampoLista(-1,ctrl.itemSelectedListFormulario,ctrl.dpCamposFormulario)">
+                                    <sk-icon font-icon="arrow-up" v="2"></sk-icon>
+                                </button>
+                                <button default class="btn btn-default btn-sk-sm"
+                                        sk-i18n tooltip="Ordenacao.buttonMoverBaixo" styleName="nextFinderBox"
+                                        ng-click="ctrl.moverCampoLista(1,ctrl.itemSelectedListFormulario,ctrl.dpCamposFormulario)">
+                                    <sk-icon font-icon="arrow-down" v="2"></sk-icon>
+                                </button>
+                            </sk-hbox>
+                            <sk-draggable-list id="camposFormulario" sk-src-data="ctrl.dpCamposFormulario"
+                                sk-selected-items="ctrl.itemSelectedListFormulario"
+                                sk-on-change-item="ctrl.onChangeDraggableItemListFormulario(item, positionToInsert)"
+                                sk-drop="ctrl.doDragDrop(event)"
+                                ng-dblclick="ctrl.editField(ctrl.itemSelectedListFormulario,ctrl.dpCamposFormulario,'form')"
+                                style="background: white;min-height: 222px;">
+                                <sk-item-tpl>
+                                    <span ng-bind="item.descricao"></span>
+                                </sk-item-tpl>
+                            </sk-draggable-list>
+                        </sk-vbox>
+                    </sk-hbox>
+                    <sk-hbox sk-width="25%" style="min-width: 300px;" sk-resizable sk-direction="'right'" flex>
+                        <sk-vbox layout-padding flex>
+                            <sk-hbox>
+                                <sk-checkbox id="cbExibeHistorico" ng-model="ctrl.usaRefProdutoEquivalente"
+                                    sk-margin-bottom="5px">
+                                    <span sk-i18n="cot_lblTrazerRefProduto"> </span>
+                                </sk-checkbox>
+                                <sk-help-tip style="margin-left: 5px" sk-i18n sk-text="cot_helpRefFornecedor">
+                                </sk-help-tip>
+                            </sk-hbox>                        
+                            <sk-hbox sk-margin-top="5px" style="margin-bottom: 5px;" layout-align="start center">
+                                <label class="text-bold" style="margin-right: 5px;">
+                                    Campos da grade
+                                </label>
+                                <div class="btn-group" style="display: flex;">
+                                    <button default small class="btn btn-default btn-sk-sm" id="btnAddCampo"
+                                        ng-click="ctrl.openPopUpAvaliableFields(ctrl.dpCamposGrade, 'CpGrid')"
+                                        sk-i18n tooltip="Cotacao.RotinaCotacao.lblAdicionarCampo">
+                                        <sk-icon font-icon="plus" v="2"></sk-icon>
+                                    </button>
+                                    <button default small class="btn btn-default btn-sk-sm" id="btnRemCampo"
+                                        sk-i18n tooltip="Cotacao.RotinaCotacao.lblRemoverCampoSelecionado" styleName="removeControlIcon"
+                                        ng-click="ctrl.remCampo(ctrl.itemSelectedListGrade, ctrl.dpCamposGrade, ctrl.dpAvailableGridFields)">
+                                        <sk-icon font-icon="minus" v="2"></sk-icon>
+                                    </button>
+                                    <button default small class="btn btn-default btn-sk-sm"
+                                        sk-i18n tooltip="Cotacao.RotinaCotacao.lblRemoverTodosCamposGrade" styleName="btnBroom"
+                                        ng-click="ctrl.clearList(ctrl.dpCamposGrade, 'grade')">
+                                        <sk-icon font-icon="clean" v="2"></sk-icon>
+                                    </button>
+                                    <button default small class="btn btn-default btn-sk-sm"
+                                        sk-i18n tooltip="Ordenacao.buttonMoverCima" styleName="previousFinderBox"
+                                        ng-click="ctrl.moverCampoLista(-1,ctrl.itemSelectedListGrade,ctrl.dpCamposGrade)">
+                                        <sk-icon font-icon="arrow-up" v="2"></sk-icon>
+                                    </button>
+                                    <button default small class="btn btn-default btn-sk-sm"
+                                        sk-i18n tooltip="Ordenacao.buttonMoverBaixo" styleName="nextFinderBox"
+                                        ng-click="ctrl.moverCampoLista(1,ctrl.itemSelectedListGrade,ctrl.dpCamposGrade)">
+                                        <sk-icon font-icon="arrow-down" v="2"></sk-icon>
+                                    </button>
+                                </div>
+                            </sk-hbox>
+                            <sk-draggable-list id="camposGrade" sk-src-data="ctrl.dpCamposGrade"
+                                sk-selected-items="ctrl.itemSelectedListGrade"
+                                sk-on-change-item="ctrl.onChangeDraggableItemListGrade(item, positionToInsert)"
+                                sk-drop="ctrl.doDragDrop(event)"
+                                ng-dblclick="ctrl.editField(ctrl.itemSelectedListGrade,ctrl.dpCamposGrade,'grade')"
+                                style="background: white;min-height: 222px;">
+                                <sk-item-tpl>
+                                    <span ng-bind="item.descricao"></span>
+                                </sk-item-tpl>
+                            </sk-draggable-list>
+                        </sk-vbox>
+                    </sk-hbox>
+                    <sk-hbox sk-width="23%" style="min-width: 300px;" sk-resizable sk-direction="'right'" flex>
+                        <sk-vbox layout-padding flex>
+                            <sk-checkbox id="cbUsaTipNeg" ng-model="ctrl.usaTipoNegociacaoPortal"
+                                style="margin-bottom: 5px;">
+                                <span sk-i18n="cot_lblUsaTipoNegociacao"> </span>
+                            </sk-checkbox>
+                            <sk-hbox sk-margin-top="5px" sk-margin-bottom="5px" layout-align="start center">
+                                <label class="text-bold" style="margin-right: 5px;">
+                                    <span sk-i18n="cot_lblTipoNegociacao"> </span>
+                                </label>
+                                <button class="btn btn-default btn-sk-sm" id="btnAddCampo"
+                                    ng-click="ctrl.openPopUpAvaliableFields(ctrl.dpTiposNegociacao, 'tpNeg')"
+                                    sk-i18n tooltip="Cotacao.RotinaCotacao.lblAdicionarCampo"
+                                    sk-disabled="!ctrl.usaTipoNegociacaoPortal">
+                                    <sk-icon font-icon="plus" v="2"></sk-icon>
+                                </button>
+                                <button class="btn btn-default btn-sk-sm" id="btnRemCampo"
+                                    sk-i18n tooltip="Cotacao.RotinaCotacao.lblRemoverCampoSelecionado" styleName="removeControlIcon"
+                                    ng-click="ctrl.remCampo(ctrl.itemSelectedListNegociacao, ctrl.dpTiposNegociacao, ctrl.dpAvailableTipNeg)"
+                                    sk-disabled="!ctrl.usaTipoNegociacaoPortal">
+                                    <sk-icon font-icon="minus" v="2"></sk-icon>
+                                </button>
+                                <button class="btn btn-default btn-sk-sm" sk-i18n tooltip="Cotacao.RotinaCotacao.lblRemoverTodosTiposGrade"
+                                    styleName="btnBroom"
+                                    sk-disabled="!ctrl.usaTipoNegociacaoPortal"
+                                    ng-click="ctrl.clearList(ctrl.dpTiposNegociacao, 'tipoNegociacao')">
+                                    <sk-icon font-icon="clean" v="2"></sk-icon>
+                                </button>
+                                <button class="btn btn-default btn-sk-sm" sk-i18n tooltip="Ordenacao.buttonMoverCima"
+                                    styleName="previousFinderBox"
+                                    ng-click="ctrl.moverCampoLista(-1,ctrl.itemSelectedListNegociacao,ctrl.dpTiposNegociacao)"
+                                    sk-disabled="!ctrl.usaTipoNegociacaoPortal">
+                                    <sk-icon font-icon="arrow-up" v="2"></sk-icon>
+                                </button>
+                                <button class="btn btn-default btn-sk-sm" sk-i18n tooltip="Ordenacao.buttonMoverBaixo"
+                                    styleName="nextFinderBox"
+                                    ng-click="ctrl.moverCampoLista(1,ctrl.itemSelectedListNegociacao,ctrl.dpTiposNegociacao)"
+                                    sk-disabled="!ctrl.usaTipoNegociacaoPortal">
+                                    <sk-icon font-icon="arrow-down" v="2"></sk-icon>
+                                </button>
+                            </sk-hbox>
+                            <sk-draggable-list id="tiposNegociacao" sk-src-data="ctrl.dpTiposNegociacao"
+                                sk-selected-items="ctrl.itemSelectedListNegociacao"
+                                sk-on-change-item="ctrl.onChangeDraggableItemListGrade(item, positionToInsert)"
+                                sk-drop="ctrl.doDragDrop(event)"
+                                ng-dblclick="ctrl.editField(ctrl.itemSelectedListNegociacao,ctrl.dpTiposNegociacao,'tipoNegociacao')"
+                                sk-disabled="!ctrl.usaTipoNegociacaoPortal" style="background: white;min-height: 222px;">
+                                <sk-item-tpl>
+                                    <span ng-bind="item.descricao"></span>
+                                </sk-item-tpl>
+                            </sk-draggable-list>
+                        </sk-vbox>
+                    </sk-hbox>
+                    <sk-hbox sk-width="29%" style="min-width: 300px;" sk-resizable sk-direction="'right'" flex>
+                        <sk-vbox layout-padding flex>
+                            <sk-hbox align="start start" gap="5">
+                                <sk-i18n>Cotacao.RotinaCotacao.dadosCotLabel</sk-i18n>
+                                <sk-help-tip sk-i18n sk-text="Cotacao.RotinaCotacao.dadosCotHelpTip"></sk-help-tip>
+                            </sk-hbox>                        
+                            <sk-hbox sk-margin-top="5px" style="margin-bottom: 5px;" layout-align="start center">
+                                <sk-i18n class="text-bold" style="margin-right: 5px;">Cotacao.RotinaCotacao.lblCamposAbaDadosCotação</sk-i18n>
+                            </sk-hbox>
+                            <sk-draggable-list id="camposGrade" sk-src-data="ctrl.dpDadosCotacao"
+                                sk-selected-items="ctrl.itemSelectedListDados"
+                                ng-dblclick="ctrl.editDadosCotacao(ctrl.itemSelectedListDados,ctrl.dpDadosCotacao,'grade')"
+                                style="background: white;min-height: 222px;">
+                                <sk-item-tpl>
+                                    <span ng-bind="item.descricao"></span>
+                                </sk-item-tpl>
+                            </sk-draggable-list>
+                        </sk-vbox>
+                    </sk-hbox>
+                </sk-resizable-columns>
+        </sk-vbox>  
+    </sk-vbox>
+</sk-vbox>

@@ -1,0 +1,34 @@
+<sk-dataset id="dsFornecedores" sk-dataset-created="ctrl.createDataSet(dataset)" sk-standalone>
+    <sk-dsfield-md name="CODPARC" user-type="I" description="cot_gridPedidosFornCodParc" sk-i18n></sk-dsfield-md>
+    <sk-dsfield-md name="NOMEPARC" user-type="S" description="cot_gridPedidosFornNomeParc" sk-i18n></sk-dsfield-md>
+    <sk-dsfield-md name="PRECIFICADO" user-type="I" description="Precificação" sk-i18n>
+    </sk-dsfield-md>
+    <sk-dsfield-md name="PRODUTOS" visible="false"></sk-dsfield-md>
+</sk-dataset>
+
+<sk-hbox sk-width="100%">
+    <sk-navigator dataset="ctrl.dsFornecedores" sk-show-add-button="false" sk-show-copy-button="false"
+        sk-show-refresh-button="false" sk-show-cancel-button="false" sk-show-navigation="false">
+    </sk-navigator>
+    <sk-grid-config sk-config-name="{{::ctrl.resourceIDGrade}}">
+    </sk-grid-config>
+    <button class="btn btn-default" ng-click="ctrl.removerSel()" styleName="btnRemoveSelectedLines"
+        tooltip="cot_txtBtnRemoverSel" sk-i18n>
+        <sk-icon svg-src="btn-remove-selected.svg"></sk-icon>
+    </button>
+    <button class="btn btn-default" ng-click="ctrl.removerNaoSel()" styleName="btnRemoveDeselectedLines"
+        tooltip="cot_txtBtnRemoverNaoSel" sk-i18n>
+        <sk-icon svg-src="btn-remove-deselected.svg"></sk-icon>
+    </button>
+    <button class="btn btn-default" label="cot_txtBtnVerProdutos" sk-height="25px"
+        ng-click="ctrl.chamaPopupProdutos()" tooltip="cot_txtBtnVerProdutos" sk-i18n>
+        <span sk-i18n="cot_txtBtnVerProdutos"></span>
+    </button>
+</sk-hbox>
+
+<sk-datagrid sk-dataset="ctrl.dsFornecedores" sk-config-name="{{::ctrl.resourceIDGrade}}"
+    sk-on-dbl-click="ctrl.trocarFornecedorAprovado()" sk-allow-multiple-selection="true" >
+    <sk-datagrid-custom-column sk-field-name="CODPARC"></sk-datagrid-custom-column>
+    <sk-datagrid-custom-column sk-field-name="NOMEPARC"></sk-datagrid-custom-column>
+    <sk-datagrid-custom-column sk-field-name="PRECIFICADO"></sk-datagrid-custom-column>
+</sk-datagrid>

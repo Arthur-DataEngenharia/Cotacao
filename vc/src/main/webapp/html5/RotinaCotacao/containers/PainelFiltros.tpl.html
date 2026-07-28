@@ -1,0 +1,39 @@
+<sk-simple-form sk-columns="1" no-padding>
+    <sk-simple-item sk-label="{{ctrl.labelPesquisaProduto}}">
+        <sk-pesquisa-input sk-value="ctrl.pesqProd" sk-entity-name="Produto"></sk-pesquisa-input>
+    </sk-simple-item>
+    
+    <sk-simple-item sk-label="{{ctrl.labelPesquisaParceiro}}">
+        <sk-pesquisa-input sk-value="ctrl.pesqParc" sk-entity-name="ParceiroFornecedorCotacao">
+    </sk-simple-item>
+    
+    <sk-simple-item sk-label="{{ctrl.labelPesquisaCotacao}}">
+        <sk-pesquisa-input sk-value="ctrl.pesqCotacao" sk-show-description-input="false" sk-entity-name="CabecalhoCotacao"></sk-pesquisa-input>
+    </sk-simple-item>
+
+    <sk-simple-item sk-label="{{ctrl.labelPesquisaEmpresa}}">
+        <sk-pesquisa-input sk-value="ctrl.pesqEmpresa" sk-entity-name="Empresa"></sk-pesquisa-input>
+    </sk-simple-item>
+
+    <sk-simple-item sk-label="{{ctrl.labelPesquisaCentroResult}}">
+        <sk-pesquisa-input sk-value="ctrl.pesqCentResult" sk-entity-name="CentroResultado">
+    </sk-simple-item>
+
+    <sk-simple-item sk-margin="5px 0px" sk-padding-bottom="5px" sk-label="{{ctrl.labelPesquisaPeriodoCotacao}}" sk-in-line="true">
+        <sk-combobox sk-width="155px" sk-allow-null="false" sk-value="ctrl.comboPesqCampoPeriodo" sk-options="ctrl.cbxPesqCampoPeriodo"></sk-combobox>
+        <sk-date-period style="position: absolute; left: 0;top: 35px;" sk-value="ctrl.campoPeriodo"></sk-date-period>
+    </sk-simple-item>
+</sk-simple-form>
+
+<sk-vbox sk-margin-top="25px" gap="8">
+    <sk-checkbox-list sk-label="{{::ctrl.isCabecalho ? ctrl.labelTGFCOTSituacao : ctrl.labelTGFITCStatusProdCot}}"
+                        sk-options="ctrl.lstStatus" 
+                        sk-value="ctrl.listValue"
+                        sk-height="170px">
+    </sk-checkbox-list>
+    <sk-checkbox-list sk-label="{{::ctrl.lblEmail}}" 
+                        sk-options="ctrl.lstEmail"
+                        sk-value="ctrl.listValueEmail"
+                        sk-height="120px">
+    </sk-checkbox-list>
+</sk-vbox>

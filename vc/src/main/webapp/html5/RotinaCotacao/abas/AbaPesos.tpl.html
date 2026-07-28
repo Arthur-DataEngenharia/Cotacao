@@ -1,0 +1,43 @@
+<sk-vbox flex layout-padding>
+<button default id="btCriterios" class="btn btn-default" ng-click="ctrl.showPopupBuscaPesoCriterio()" tooltip="cot_labelCriterios"
+    ng-enabled="ctrl.btCriteriosVisible" 
+    tooltip-placement="bottom"
+    tooltip-append-to-body="true"
+    sk-width="80px" style="margin-left: 15px;" sk-i18n>
+    {{'cot_labelCriterios' | translate}}
+</button>
+<sk-form sk-dataset="ctrl.dsCabCotacao" columns="1" sk-inline="true" sk-autofocus sk-only-custom>
+    <sk-form-custom-item sk-field-name="PESOPRECO">
+        <sk-numeric-stepper sk-dataset="ctrl.dsCabCotacao" sk-field-name="PESOPRECO" sk-max-value="10" sk-min-value="0"
+            textAlign="right"></sk-numeric-stepper>
+    </sk-form-custom-item>
+    <sk-form-custom-item sk-field-name="PESOTAXAJURO">
+        <sk-numeric-stepper sk-dataset="ctrl.dsCabCotacao" sk-field-name="PESOTAXAJURO" sk-max-value="10"
+            sk-min-value="0" textAlign="right"></sk-numeric-stepper>
+    </sk-form-custom-item>
+    <sk-form-custom-item sk-field-name="PESOQUALPROD">
+        <sk-numeric-stepper sk-dataset="ctrl.dsCabCotacao" sk-field-name="PESOQUALPROD" sk-max-value="10"
+            sk-min-value="0" textAlign="right"></sk-numeric-stepper>
+    </sk-form-custom-item>
+    <sk-form-custom-item sk-field-name="PESOCONFIABFORN">
+        <sk-numeric-stepper sk-dataset="ctrl.dsCabCotacao" sk-field-name="PESOCONFIABFORN" sk-max-value="10"
+            sk-min-value="0" textAlign="right"></sk-numeric-stepper>
+    </sk-form-custom-item>
+    <sk-form-custom-item sk-field-name="PESOPRAZOMED">
+        <sk-numeric-stepper sk-dataset="ctrl.dsCabCotacao" sk-field-name="PESOPRAZOMED" sk-max-value="10"
+            sk-min-value="0" textAlign="right"></sk-numeric-stepper>
+    </sk-form-custom-item>
+    <sk-form-custom-item sk-field-name="PESOGARANTIA">
+        <sk-numeric-stepper sk-dataset="ctrl.dsCabCotacao" sk-field-name="PESOGARANTIA" sk-max-value="10"
+            sk-min-value="0" textAlign="right"></sk-numeric-stepper>
+    </sk-form-custom-item>
+    <sk-form-custom-item sk-field-name="PESOQUALATEND">
+        <sk-numeric-stepper sk-dataset="ctrl.dsCabCotacao" sk-field-name="PESOQUALATEND" sk-max-value="10"
+            sk-min-value="0" textAlign="right"></sk-numeric-stepper>
+    </sk-form-custom-item>
+    <sk-form-custom-item sk-field-name="PESOPRAZOENTREG">
+        <sk-numeric-stepper sk-dataset="ctrl.dsCabCotacao" sk-field-name="PESOPRAZOENTREG" sk-max-value="10"
+            sk-min-value="0" textAlign="right"></sk-numeric-stepper>
+    </sk-form-custom-item>
+</sk-form>
+</sk-vbox>

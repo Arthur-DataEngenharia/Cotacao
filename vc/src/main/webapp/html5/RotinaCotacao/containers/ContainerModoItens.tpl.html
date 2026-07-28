@@ -1,0 +1,328 @@
+<sk-dataset id="dsCabecalhoCotacaoNovo" entity-name="CabecalhoCotacao"
+    sk-dataset-created="ctrl.createDataSetCabCot(dataset)" sk-presentation-field="CODMOTCAN,OBSMOTCANC"
+    sk-refresh-handler="ctrl.refreshHandlerNovaCotacao(request)" sk-standalone>
+    <sk-field
+        pattern="NUMCOTACAO,CODEMP,CODCENCUS,CODNAT,CODPROJ,CODUSURESP,CODUSUREQ,OBSERVACAO,DHINIC,DHFINAL,PESOCONDPAG,PESOCONFIABFORN,
+                        PESOGARANTIA,PESOPRAZOENTREG,PESOPRAZOMED,PESOPRECO,PESOQUALATEND,PESOQUALPROD,PESOTAXAJURO,VALPROPOSTA,CODMOTCAN,OBSMOTCANC">
+    </sk-field>
+    <sk-field pattern="$USERFIELDS"></sk-field>
+</sk-dataset>
+
+<sk-dataset entity-name="ItemCotacao" sk-standalone sk-dataset-created="ctrl.createDataSetItemCot(dataset)" sk-presentation-field="COMPLDESC">
+    <sk-field pattern="CODPROD,COMPLDESC,CODVOL,QTDCOTADA,CONTROLE,DTLIMITE,CODLOCAL,OBS,STATUSPRODCOT,SITUACAO,PRECO,CODPARC,CODMOTCAN,OBSMOTCANC">
+    </sk-field>
+    <sk-field pattern="$USERFIELDS"></sk-field>
+</sk-dataset>
+
+<sk-viewstack sk-selected-index="ctrl.indiceViewStack" id="viewStack" sk-creation-policy="all" layout="column" flex>
+    <sk-viewstack-content class="textarea-plus" layout="column" flex>
+        <sk-dynaform id="dynaform" 
+                    sk-entity-name="ItemCotacao" 
+                    sk-dynaform-interceptor="ctrl"
+                    sk-helper-class-name="br.com.sankhya.cotacao.model.helper.ItemCotacaoHelper" 
+                    sk-recursive-helper="true"
+                    sk-on-datagrid-loaded="ctrl.onDataGridLoaded(datagrid,dataset)" 
+                    sk-skip-start-page="true"
+                    sk-hide-entity-card="true" 
+                    sk-resource-id="{{ctrl.resourceID + '.personalizedFilter.RotinaCotacao'}}"
+                    sk-other-options-loader="ctrl.buildDynaOptions(dynaform)"
+                    sk-on-dynaform-loaded="ctrl.onDynaformLoaded(dynaform,dataset)" 
+                    sk-width="100%" 
+                    sk-height="100%"
+                    layout="column" 
+                    sk-datagrid-interceptor="ctrl"
+                    sk-form-interceptor="ctrl"
+                    sk-filter-panel-interceptor="ctrl"
+                    sk-fn-filter-personalized-filter="ctrl.fieldFilterFunction"
+                    sk-hide-button-recents="true"
+                    sk-hide-entity-search-field="true"
+                    sk-hide-button-favorite="true"
+                    sk-hide-custom-filter-panel="!ctrl.showFiltroItens"
+                    sk-disable-remove-invisible-fields="true"
+                    sk-creation-policy="all"
+                    sk-disable-personalized-filter-custom="true"
+                    sk-ignore-accept-column-entity-name="true"
+                    sk-action-button-resource-id="{{ctrl.resourceID}}">
+                    <dynaform-item-cotacao>
+                        <!-- Se for modo cabecalho não podemos apresentar esse painel pois ele ja tem outro,
+                            só deve ser apresentado com parametro do USAMODCABCOT desligado,
+                            a iumplementação abaixo não funciona, acredito que talvez seja necessario 
+                            um ajuste no framework para ele não criar o painel de acordo com uma property.
+
+                             br.com.sankhya.swb.cotacao.rotinas.cotacao
+                        -->
+                        <sk-custom-filter-panel>
+                            <sk-painel-filtros-cotacao id="painelFiltro2" 
+                                                       callback-filter="ctrl.filtrarItensCotacao"
+                                                       id-personalized-filter="personalizedFilter.RotinaCotacao" 
+                                                       id-save-filter="filtros"
+                                                       is-cabecalho="false" 
+                                                       on-content-created="ctrl.onFilterCreated($instance)">
+                            </sk-painel-filtros-cotacao>
+                        </sk-custom-filter-panel>
+
+                        <sk-left-top-bar>
+                                <sk-hbox ng-show="ctrl.showBotoesItens" gap="5">
+                                    <button tooltip="cot_labelAprovar" 
+                                            tooltip-placement="bottom"
+                                            tooltip-append-to-body="true" 
+                                            ng-click="ctrl.aprovarCotacaoProdutoComPopUpResumo()" 
+                                            default
+                                            sk-disabled="" 
+                                            sk-i18n>
+                                            <sk-hbox align="center center" gap="5">
+                                                <sk-icon font-icon="square-check" v="2"></sk-icon>
+                                                <span sk-i18n="cot_labelAprovar"></span>
+                                            </button>
+                                    </button>
+<!--                                    <button default -->
+<!--                                            tooltip="Cotacao.RotinaCotacao.labelGerarPedidos" -->
+<!--                                            tooltip-placement="bottom"-->
+<!--                                            tooltip-append-to-body="true" -->
+<!--                                            ng-click="ctrl.gerarPedidos()" -->
+<!--                                            sk-i18n>-->
+<!--                                            <sk-hbox align="center center" gap="5">-->
+<!--                                                <sk-icon font-icon="file-plus" v="2"></sk-icon>-->
+<!--                                                <span sk-i18n="Cotacao.RotinaCotacao.labelGerarPedidos"></span>-->
+<!--                                            </sk-hbox>-->
+<!--                                    </button>-->
+                                    <button default 
+                                            tooltip="cot_txtBtnAdicionarProdutos"
+                                            tooltip-placement="bottom" 
+                                            tooltip-append-to-body="true" 
+                                            ng-click="ctrl.addProdutos()"
+                                            sk-i18n>
+                                            <sk-hbox align="center center" gap="5">
+                                                <sk-icon font-icon="circle-plus" v="2"></sk-icon>
+                                                <span sk-i18n="Cotacao.RotinaCotacao.labelProdutos"></span>
+                                            </sk-box>
+                                    </button>
+                                    <button default
+                                            tooltip="Cotacao.RotinaCotacao.cot_ttEnviarProdutosSelecionados" 
+                                            tooltip-placement="bottom"
+                                            tooltip-append-to-body="true" 
+                                            ng-click="ctrl.carregaPreferencias(ctrl.enviarProdutosPortal)"
+                                            sk-i18n>
+                                            <sk-hbox align="center center" gap="5">
+                                                <sk-icon font-icon="envelope" v="2"></sk-icon>
+                                                <span sk-i18n="cot_txtBtnEnviar"></span>
+                                            </sk-hbox>
+                                    </button>
+                            </sk-hbox>                        
+                        </sk-left-top-bar>
+                    </dynaform-item-cotacao>
+                    <dynaform-coleta-item-cotacao
+                        sk-form-interceptor="formInterceptor"
+                    >
+                        <sk-left-top-bar>
+                            <button default 
+                                    tooltip="{{ctrl.labelAprovDesaprov}}"
+                                    tooltip-placement="bottom" 
+                                    tooltip-append-to-body="true"
+                                    ng-click="ctrl.btnAprovClicked(ctrl.labelAprovDesaprov)"
+                                    sk-disabled="ctrl.disabledAprovDesaprov" 
+                                    sk-i18n>
+                                    <span ng-bind="ctrl.labelAprovDesaprov"></span>
+                            </button>
+                            <button default 
+                                    tooltip="cot_labelUltimasCompras" 
+                                    tooltip-placement="bottom"
+                                    tooltip-append-to-body="true" 
+                                    ng-click="ctrl.btnUltCompClicked()" 
+                                    sk-i18n>
+                                    <span sk-i18n="cot_labelUltimasCompras"></span>
+                            </button>
+                            <button default 
+                                    sk-disabled="!ctrl.btnCalCustosEnabled"
+                                    tooltip="cot_labelCalcularCustos" 
+                                    tooltip-placement="bottom" 
+                                    tooltip-append-to-body="true"
+                                    ng-click="ctrl.btnCalCustosClicked()" 
+                                    sk-i18n>
+                                    <span sk-i18n="cot_labelCalcularCustos"></span>
+                            </button>
+                            <button default
+                                    tooltip="Cotacao.RotinaCotacao.cot_labelDtEntrega"
+                                    tooltip-placement="bottom" 
+                                    tooltip-append-to-body="true" 
+                                    ng-click="ctrl.btnDtEntregaClicked()"
+                                    sk-i18n>
+                                    <span sk-i18n="Cotacao.RotinaCotacao.cot_labelDtEntrega"></span>
+                            </button>
+                        </sk-left-top-bar>
+                        
+                        <sk-bottom-grid-panel>
+                                <sk-hbox gap="8" layout-padding>
+                                    <sk-hbox gap="5">
+                                        <sk-hbox sk-width="15px" 
+                                                 sk-height="15px" 
+                                                 sk-bg-color="{{::ctrl.corLegendaColetaMNRespondida}}" 
+                                                 sk-border="1px solid #ccc">
+                                        </sk-hbox>
+                                        <sk-i18n>cot_labelLegendaColetaMNRespondida</sk-i18n>
+                                    </sk-hbox>
+                                    <sk-hbox gap="5">
+                                        <sk-hbox sk-width="15px" 
+                                                 sk-height="15px" 
+                                                 sk-bg-color="{{::ctrl.corLegendaEmpate}}" 
+                                                 sk-border="1px solid #ccc">
+                                        </sk-hbox>
+                                        <sk-i18n>cot_labelLegendaEmpate</sk-i18n>
+                                    </sk-hbox>
+                                    <sk-hbox gap="5">
+                                        <sk-hbox sk-width="15px" 
+                                                 sk-height="15px"  
+                                                 sk-bg-color="{{::ctrl.corLegendaNegociar}}" 
+                                                 sk-border="1px solid #ccc">
+                                        </sk-hbox>
+                                        <sk-i18n>cot_labelLegendaNegociar</sk-i18n>
+                                    </sk-hbox>
+                                </sk-hbox>
+                        </sk-bottom-grid-panel>
+                    </dynaform-coleta-item-cotacao>
+        </sk-dynaform>
+    </sk-viewstack-content>
+    <sk-viewstack-content layout="column" flex>
+        <sk-vbox id="novaCotacao" flex>
+            <sk-vbox sk-width="100%" sk-padding="5px">
+                <sk-vbox gap="10" sk-width="100%" sk-padding="10px" sk-border="1px solid #ccc" class="high-contrast-panel" style="border-radius:5px;">
+                    <label sk-font-size="14px"
+                           ng-bind="ctrl.strTitleNovaCotacao">
+                    </label>
+
+                    <span>
+                        <sk-divider></sk-divider>
+                    </span>
+                    
+                    <sk-hbox align="start center" gap="5" flex>
+                        <button default font-icon="chevron-left" ng-click="ctrl.cancelAddProdutosCotacao()" sk-i18n>Geral.lblVoltar</button>
+                        <button default ng-click="ctrl.confirmarInclusaoAlteracaoCabecalho()" sk-i18n>Geral.confirmar</button>
+                    </sk-hbox>
+                </sk-vbox>
+                <sk-form sk-dataset="ctrl.dsCabecalhoCotacaoNovo" sk-margin-top="10px" flex sk-inline="true"
+                    class="compact-components" sk-only-custom>
+                    <sk-form-custom-item sk-field-name="NUMCOTACAO" sk-enabled="false"></sk-form-custom-item>
+                </sk-form>
+            </sk-vbox>
+            <sk-tabnavigator id="abasCotacao" sk-selected-index="ctrl.selectedIndexNova" sk-width="100%"
+                on-tabnavigator-created="ctrl.abasCotacaoCreated()">
+                <sk-tabnavigator-item ng-click="ctrl.selectTabIndex(0)" sk-label="cot_labelGeral">
+                </sk-tabnavigator-item>
+                <sk-tabnavigator-item ng-click="ctrl.selectTabIndex(1)" sk-label="cot_labelItensCotacao" ng-show="ctrl.abaItensCotacao">
+                </sk-tabnavigator-item>
+                <sk-tabnavigator-item ng-click="ctrl.selectTabIndex(2)" sk-label="cot_labelObservacao">
+                </sk-tabnavigator-item>
+                <sk-tabnavigator-item ng-click="ctrl.selectTabIndex(3)" sk-label="cot_labelPesosCriterios">
+                </sk-tabnavigator-item>
+            </sk-tabnavigator>
+            <sk-viewstack sk-selected-index="ctrl.selectedIndexNova" 
+                          sk-creation-policy="all"
+                          class="tab-container" 
+                          layout="column" 
+                          flex>
+                <sk-viewstack-content layout="column" sk-padding-top="10px" flex>
+                    <sk-hbox id="abaCotacaoGeral" sk-width="100%" sk-height="100%">
+                        <sk-form id="formCabecalhoCotacaoGeral" sk-width="100%" sk-height="100%"
+                            sk-dataset="ctrl.dsCabecalhoCotacaoNovo" sk-inline="true" sk-disabled="!ctrl.editProfile"
+                            sk-form-interceptor="formInterceptor" sk-only-custom>
+                            <sk-form-custom-item sk-field-name="CODEMP"></sk-form-custom-item>
+                            <sk-form-custom-item sk-field-name="CODCENCUS">
+                                <sk-pesquisa-input sk-entity-name="CentroResultado"
+                                    sk-dataset="ctrl.dsCabecalhoCotacaoNovo" sk-value="ctrl.pesqCentCus"
+                                    sk-description-field-name="CentroResultado.DESCRCENCUS" sk-field-name="CODCENCUS"
+                                    sk-somente-analitico="true">
+                                </sk-pesquisa-input>
+                            </sk-form-custom-item>
+                            <sk-form-custom-item sk-field-name="CODNAT" sk-description="field_tgfcot_codnat">
+                                <sk-pesquisa-input id="pesqNatureza" sk-dataset="ctrl.dsCabecalhoCotacaoNovo"
+                                    sk-entity-name="Natureza" sk-description-field-name="Natureza.DESCRNAT"
+                                    sk-field-name="CODNAT" searchFieldName="CODNAT" sk-somente-analitico="true" />
+                            </sk-form-custom-item>
+                            <sk-form-custom-item sk-field-name="CODPROJ" sk-description="field_tcsprj_codproj">
+                                <sk-pesquisa-input id="pesqProjeto" sk-dataset="ctrl.dsCabecalhoCotacaoNovo"
+                                    sk-entity-name="Projeto" sk-description-field-name="Projeto.IDENTIFICACAO"
+                                    sk-field-name="CODPROJ" searchFieldName="CODPROJ" sk-somente-analitico="true" />
+                            </sk-form-custom-item>
+                            <sk-form-custom-item sk-field-name="CODUSURESP" sk-description="field_tgfcot_codusuresp"
+                                required="true">
+                                <sk-pesquisa-input sk-dataset="ctrl.dsCabecalhoCotacaoNovo"
+                                    sk-entity-name="UsuarioResponsavel"
+                                    sk-description-field-name="UsuarioResponsavel.NOMEUSU" sk-field-name="CODUSURESP"
+                                    searchFieldName="CODUSU" />
+                            </sk-form-custom-item>
+                            <sk-form-custom-item sk-field-name="CODUSU" sk-description="field_tgfcot_codusureq">
+                                <sk-pesquisa-input sk-dataset="ctrl.dsCabecalhoCotacaoNovo" enabled="false"
+                                    sk-entity-name="UsuarioComprador"
+                                    sk-description-field-name="UsuarioComprador.NOMEUSU" sk-field-name="CODUSUREQ"
+                                    searchFieldName="CODUSU" />
+                            </sk-form-custom-item>
+                            <sk-form-custom-item sk-field-name="DHINIC"></sk-form-custom-item>
+                            <sk-form-custom-item sk-field-name="DHFINAL"></sk-form-custom-item>
+                            <sk-form-custom-item sk-field-name="VALPROPOSTA">
+                                <sk-number-input sk-field-name="VALPROPOSTA" sk-dataset="ctrl.dsCabecalhoCotacaoNovo"
+                                    sk-enabled="false"></sk-number-input>
+                            </sk-form-custom-item>
+                        </sk-form>
+                    </sk-hbox>
+                </sk-viewstack-content>
+                <sk-viewstack-content layout="column" ng-show="ctrl.abaItensCotacao" flex>
+                    <sk-double-face-panel layout flex id="dbfItemCotacaoNovo" sk-dataset="ctrl.dsItemCotacaoNovo"
+                        class="container-border-top-bar">
+                        <sk-top-bar layout-padding>
+                            <sk-navigator dataset="ctrl.dsItemCotacaoNovo" 
+                                          sk-show-refresh-button="false"
+                                          sk-compact-btn-add="true">
+                            </sk-navigator>
+                        </sk-top-bar>
+                        <sk-face-one layout flex>
+                            <sk-form id="formItemCotacao" sk-margin-top="10px" sk-dataset="ctrl.dsItemCotacaoNovo"
+                                sk-inline="true" flex sk-form-interceptor="formInterceptor"
+                                sk-on-form-loaded="ctrl.onFormLoaded(form)"
+                                sk-enabled="ctrl.editProfile">
+                            </sk-form>
+                        </sk-face-one>
+                        <sk-face-two layout flex>
+                            <sk-datagrid id="dataGridItemCotacaoNovo" sk-editable="false"
+                                sk-datagrid-interceptor="ctrl.novoDataGridInterceptor"
+                                sk-dataset="ctrl.dsItemCotacaoNovo" flex>
+                            </sk-datagrid>
+                        </sk-face-two>
+                    </sk-double-face-panel>
+                </sk-viewstack-content>
+                <sk-viewstack-content layout="column" sk-padding-top="10px" flex>
+                    <sk-form sk-dataset="ctrl.dsCabecalhoCotacaoNovo" sk-form-interceptor="formInterceptor" flex
+                        sk-inline="true" class="compact-components" sk-disabled="!ctrl.editProfile" sk-only-custom>
+                        <sk-form-custom-item sk-field-name="OBSERVACAO"></sk-form-custom-item>
+                    </sk-form>
+                </sk-viewstack-content>
+                <sk-viewstack-content layout="column" flex>
+                    <div class="tabItem" ng-include="'html5/RotinaCotacao/abas/AbaPesosItens.tpl.html'"></div>
+                </sk-viewstack-content>
+            </sk-viewstack>
+        </sk-vbox>
+    </sk-viewstack-content>
+    <sk-viewstack-content layout="column" flex>
+        <preferencias id="preferencias" sk-width="100%" sk-height="100vh" voltar-function="ctrl.voltarPreferencias()"
+            salvar-preferencias="ctrl.salvarPreferencias()" close-function="ctrl.fechaPreferencias()"
+            on-content-created="ctrl.onColetaPreferencias($instance)">
+        </preferencias>
+    </sk-viewstack-content>
+    <sk-viewstack-content layout="column" flex>
+        <coleta-manual on-content-created="ctrl.onColetaCreated($instance)" ds-item-cotacao="ctrl.dsItemCotacao"
+            voltar-function="ctrl.voltarColetaManual()" preferencias="ctrl.preferencias" layout="column" flex>
+        </coleta-manual>
+    </sk-viewstack-content>
+
+    <sk-viewstack-content layout="column" flex>
+        <gerar-pedido id="resumoItensAprovados" on-content-created="ctrl.onGerarPedidoCreated($instance)"
+            preferencias="ctrl.preferencias" voltar="ctrl.voltarGerarPedido()" ds-cab-cotacao="ctrl.dsCabCotacao" ds-item-cotacao="ctrl.dsItemCotacao"
+            layout="column" flex>
+        </gerar-pedido>
+    </sk-viewstack-content>
+
+</sk-viewstack>
+<script type="text/ng-template" id="abaPesos.html">
+    <body ng-app="RotinaCotacaoApp" ng-controller="AbaPesosController">
+        <div ng-include="'html5/RotinaCotacao/abas/AbaPesos.tpl.html'"></div>
+    </body>
+</script>

@@ -1,0 +1,96 @@
+.formImposto .lblText {
+    font-weight: bold;
+    color: black;
+}
+
+.sk-popup-fields .modal-content{
+    width: 300px !important;            
+}
+
+.sk-popup-edit-field .modal-content{
+    width: 450px !important;      
+}
+
+.popUpCotacaoMoeda .modal-content{
+    width: 700px !important;   
+}
+
+.popUpCalculoImposto .modal-content{
+    width: 750px !important;
+}
+
+.popUpListProdTransf .modal-content{
+    width: 600px !important;
+}
+
+.popUpTransferirItens .modal-content{
+    width: 700px !important;
+}
+
+.popUpGerarPedido .modal-content{
+    width: 630px !important;
+}
+
+.popUpUltimasCompras .modal-content{
+    width: 720px !important;
+}
+
+.popUpMultiplasDataEntrega .modal-content{
+    width: 480px !important;
+}
+
+
+.popUpProdutosEspecificos .modal-content{
+    width: 650px !important;
+}
+
+.popUpProdutos .modal-content{
+    width: 700px !important;
+}
+
+.listAvailableFields{
+    max-height: 350px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.dynaformColetaManual{
+    height: calc(100% - 40px);
+    width: calc(100% - 6px);
+}
+
+.btnRestaurarPadroes{
+    margin-left: 27px;
+    width: 140px;
+    margin-bottom: 5px;
+}
+
+.btnVoltarProdutosCotacao{
+    width: 70px;
+    margin-right: 5px;
+}
+
+.textarea-plus sk-dynaform textarea{
+    height: 150px!important;
+}
+
+.container-border-top-bar .top-bar,sk-top-bar{
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+}
+
+.popUpMultiplasDataEntrega #painelEdicao  sk-date-time-input {
+    width: 70%
+}
+
+sk-sidenav {
+    top: 37px !important;
+}
+
+.popUpMultiplasDataEntrega #painelEdicao  sk-date-time-input {
+    width: 70%
+}
+
+.dynaform-body{
+    overflow-x: auto !important;
+}

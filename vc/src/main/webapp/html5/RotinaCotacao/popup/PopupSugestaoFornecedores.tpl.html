@@ -1,0 +1,86 @@
+<sk-dataset id="dsSugestaoForn" sk-dataset-created="ctrl.createDataSet(dataset)" sk-standalone>
+    <sk-dsfield-md name="CODPARC" name="NOME" user-type="I" description="cot_gridPedidosFornCodParc" sk-i18n>
+    </sk-dsfield-md>
+    <sk-dsfield-md name="NOMEPARC" user-type="S" description="cot_gridPedidosFornNomeParc" sk-i18n></sk-dsfield-md>
+    <sk-dsfield-md name="ACESSOPORTALCOTACAO" user-type="S" description="cot_gridSugestaoAcessaPortal" sk-i18n>
+        <sk-options>
+            <sk-option data="S" label="Geral.buttonSim"></sk-option>
+            <sk-option data="N" label="Geral.buttonNao"></sk-option>
+        </sk-options>
+    </sk-dsfield-md>
+    <sk-dsfield-md name="DTULTCOMPRA" user-type="S" description="cot_gridSugestaoDtUltimaCompra" sk-i18n>
+    </sk-dsfield-md>
+    <sk-dsfield-md name="QTDNOTASNEGOC" user-type="I" description="cot_gridSugestaoQtdNotasNegociadas" sk-i18n>
+    </sk-dsfield-md>
+    <sk-dsfield-md name="PRODUTOS" user-type="S" description="" visible="false" sk-i18n>
+    </sk-dsfield-md>    
+</sk-dataset>
+<sk-vbox flex>
+    <sk-hbox width="100%">
+        <sk-simple-form sk-in-line="true">
+            <sk-simple-item sk-label="cot_lblFornecedores" sk-required="true" sk-margin-bottom="8px">
+                <sk-hbox layout-align="start center" gap="5">
+                    <sk-combobox sk-value="ctrl.cmbTipoSugestao" sk-change="ctrl.cmbTipoSugestaoChange()" sk-options="ctrl.cbxTipoSugestao" sk-width="350">
+                    </sk-combobox>
+                    <button default id="btnBuscar" style="margin-left: 5px; height: 25px;" class="btn btn-default" tooltip="Buscar"
+                        ng-click="ctrl.buscar()" ng-if="ctrl.btnBuscarVisible">
+                        Buscar
+                    </button>
+                </sk-hbox>
+            </sk-simple-item>
+        </sk-simple-form>
+    </sk-hbox>
+    <sk-hbox width="100%" id="areaTipoPeriodo" ng-if="ctrl.areaTipoPeriodoVisible">
+        <sk-hbox style="margin-bottom: 5px;">
+            <label ng-bind="ctrl.labelPeriodoPor" style="margin-left: 12px;"></label>
+            <sk-combobox flex style="margin-left: 10px;width: 200px;" sk-change="ctrl.cmbTipoPeriodoChange()"
+                sk-value="ctrl.cmbTipoPeriodo" sk-options="ctrl.cbxTipoPeriodo">
+            </sk-combobox>
+            <sk-text-input style="width: 150px;margin-left: 5px;" sk-value="ctrl.txtQtdDias" sk-size="7"
+                sk-restrict="[^0-9]" sk-enabled="ctrl.qtdDiasEnabled" ng-if="ctrl.qtdDiasVisible"></sk-text-input>
+            <sk-date-input sk-value="ctrl.dtDataInicio" ng-if="ctrl.dtDataInicioVisible" sk-width="150"
+                style="margin-left: 5px;"></sk-date-input>
+        </sk-hbox>        
+    </sk-hbox>
+    <sk-hbox width="100%" gap="8">
+        <sk-navigator 
+            sk-add-function="ctrl.chamaPopupProdutos('A')" 
+            dataset="ctrl.dsSugestaoFornecedores" 
+            sk-show-add-button="true" 
+            sk-show-copy-button="false"
+            sk-show-remove-button="false"
+            sk-show-refresh-button="false" 
+            sk-show-cancel-button="false" 
+            sk-show-navigation="false"
+            sk-compact-btn-add>
+        </sk-navigator>
+        <sk-grid-config
+            sk-config-name="br.com.sankhya.cotacao.SugestaoFornecedores.dataGridFornecedoresSugeridos.config">
+        </sk-grid-config>
+        <button default  class="btn btn-default" tooltip="cot_txtBtnRemoverSel" ng-click="ctrl.removerSel()" sk-i18n>
+            <sk-icon svg-src="btn-remove-selected.svg"></sk-icon>
+        </button>
+        <button default class="btn btn-default" tooltip="cot_txtBtnRemoverNaoSel" ng-click="ctrl.removerNaoSel()" sk-i18n>
+            <sk-icon svg-src="btn-remove-deselected.svg"></sk-icon>
+        </button>
+        <button default class="btn btn-default" tooltip="cot_txtBtnSubstituir" ng-click="ctrl.substituirProdutos()" sk-i18n>cot_txtBtnSubstituir
+        </button>
+        <button default class="btn btn-default" tooltip="cot_txtBtnVerProdutos" ng-click="ctrl.vizualizarProdutos()" sk-i18n>
+            cot_txtBtnVerProdutos
+        </button>
+        <div layout="row" layout-align="end center" flex>
+            <sk-rows-counter sk-dataset="ctrl.dsSugestaoFornecedores"></sk-rows-counter>
+        </div>
+    </sk-hbox>
+    <sk-hbox flex style="margin-top: 5px;">
+        <sk-datagrid sk-dataset="ctrl.dsSugestaoFornecedores"
+            sk-config-name="br.com.sankhya.cotacao.SugestaoFornecedores.dataGridFornecedoresSugeridos.config"
+            sk-allow-multiple-selection="true" sk-editable="false">
+            <sk-datagrid-custom-column sk-field-name="CODPARC"></sk-datagrid-custom-column>
+            <sk-datagrid-custom-column sk-field-name="NOMEPARC"></sk-datagrid-custom-column>
+            <sk-datagrid-custom-column sk-field-name="ACESSOPORTALCOTACAO"></sk-datagrid-custom-column>
+            <sk-datagrid-custom-column sk-field-name="DTULTCOMPRA"></sk-datagrid-custom-column>
+            <sk-datagrid-custom-column sk-field-name="QTDNOTASNEGOC"></sk-datagrid-custom-column>
+        </sk-datagrid>
+    </sk-hbox>
+</sk-vbox>

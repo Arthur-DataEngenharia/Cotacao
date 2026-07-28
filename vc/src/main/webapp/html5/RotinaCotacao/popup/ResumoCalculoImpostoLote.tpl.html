@@ -1,0 +1,104 @@
+<sk-dataset id="dsColetaItemCotacao" entity-name="ColetaItemCotacao" sk-dataset-created="ctrl.createDataSet(dataset)"
+    sk-refresh-handler="" sk-standalone>
+    <sk-dsfield-md name="IMGSTATUS" user-type="S" description="Situação" sk-i18n>
+    </sk-dsfield-md>
+    <sk-dsfield-md name="NUMCOTACAO" user-type="I" sk-i18n>
+    </sk-dsfield-md>
+    <sk-dsfield-md name="CODPROD" user-type="I" sk-i18n>
+    </sk-dsfield-md>
+    <sk-dsfield-md name="CONTROLE" user-type="S" sk-i18n>
+    </sk-dsfield-md>
+    <sk-dsfield-md name="CODVOL" user-type="S" sk-i18n>
+    </sk-dsfield-md>
+    <sk-dsfield-md name="CODLOCAL" user-type="I" sk-i18n>
+    </sk-dsfield-md>
+    <sk-dsfield-md name="CODPARC" user-type="I" sk-i18n>
+    </sk-dsfield-md>
+    <sk-dsfield-md name="QTDCOTADA" user-type="I" sk-i18n>
+    </sk-dsfield-md>
+    <sk-dsfield-md name="MSG" user-type="S" description="Mensagem" sk-i18n>
+    </sk-dsfield-md>
+</sk-dataset>
+
+<sk-vbox flex>
+    <sk-hbox sk-width="100%" sk-padding-bottom="5px">
+        <button default id="btnResumo" sk-width="80px" class="btn btn-default" ng-click="ctrl.changeView(0)">
+            <span sk-translate>Cotacao.RotinaCotacao.resumo</span>
+        </button>
+        <button default id="btnDetalhes" sk-width="80px" class="btn btn-default" ng-click="ctrl.changeView(1)">
+            <span sk-translate>Cotacao.RotinaCotacao.detalhes</span>
+        </button>
+    </sk-hbox>
+    <sk-viewstack sk-selected-index="ctrl.indiceViewStack" layout="column" flex>
+        <sk-viewstack-content layout="column" flex>
+            <sk-vbox id="resumo" flex>
+                <sk-hbox width="100%">
+                    <sk-simple-form class="formImposto" sk-columns="1" sk-in-line="true">
+                        <sk-simple-item sk-label="Cotacao.RotinaCotacao.calculadas" style="font-size: 15px;">
+                            <label ng-bind="ctrl.qtdItensCalculados" style="color: #009900;">
+                            </label>
+                        </sk-simple-item>
+                        <sk-simple-item sk-label="Cotacao.RotinaCotacao.naoCalculadas" fontWeight="bold">
+                            <label ng-bind="ctrl.qtdItensNaoCalculados" style="color: #990000;"></label>
+                        </sk-simple-item>
+                        <sk-simple-item sk-label="Cotacao.RotinaCotacao.totalColetas" fontWeight="bold">
+                            <label ng-bind="ctrl.qtdItensColeta"></label>
+                        </sk-simple-item>
+                    </sk-simple-form>
+                </sk-hbox>
+                <sk-text-area sk-value="ctrl.resumoCalculoImpostos" flex></sk-text-area>
+            </sk-vbox>
+        </sk-viewstack-content>
+        <sk-viewstack-content layout="column" flex>
+            <sk-vbox id="coletasNaoCalculadas" flex>
+                <sk-hbox styleName="barStyle" sk-padding-bottom="5px" sk-padding-top="5px" sk-width="100%" gap="5">
+                    <sk-grid-config sk-config-name="{{::ctrl.gridConfigId }}"></sk-grid-config>
+                    <sk-navigator dataset="ctrl.dsColetaItemCotacao" sk-show-navigation="true"
+                        sk-show-refresh-button="false" sk-show-remove-button="false" sk-show-add-button="false">
+                    </sk-navigator>
+                    <div layout="row" layout-align="end center" flex>
+                        <sk-rows-counter sk-dataset="ctrl.dsColetaItemCotacao"></sk-rows-counter>
+                    </div>
+                </sk-hbox>
+                <sk-vbox horizontalAlign="right" flex>
+                    <sk-datagrid sk-dataset="ctrl.dsColetaItemCotacao" sk-config-name="{{::ctrl.gridConfigId }}"
+                        sk-allow-multiple-selection="false" sk-only-custom>
+                        <sk-datagrid-custom-column sk-field-name="IMGSTATUS"></sk-datagrid-custom-column>
+                        <sk-datagrid-custom-column sk-field-name="NUMCOTACAO"></sk-datagrid-custom-column>
+                        <sk-datagrid-custom-column sk-field-name="CODPROD"></sk-datagrid-custom-column>
+                        <sk-datagrid-custom-column sk-field-name="CONTROLE"></sk-datagrid-custom-column>
+                        <sk-datagrid-custom-column sk-field-name="CODVOL"></sk-datagrid-custom-column>
+                        <sk-datagrid-custom-column sk-field-name="CODLOCAL"></sk-datagrid-custom-column>
+                        <sk-datagrid-custom-column sk-field-name="CODPARC"></sk-datagrid-custom-column>
+                        <sk-datagrid-custom-column sk-field-name="QTDCOTADA"></sk-datagrid-custom-column>
+                        <sk-datagrid-custom-column sk-field-name="MSG"></sk-datagrid-custom-column>
+                        <sk-cell-renderer>
+                            <script columns="IMGSTATUS">
+                                function renderer() {
+                                    return {
+                                        getGui: function (params, originalItem, scope, utils) {
+                                            var eGui = utils.createDirective('sk-icon', { 'font-icon': 'circle-alert', 'v': '2' }, scope);
+                                            return eGui;
+                                        },
+
+                                        refresh: function (params) {
+                                            return true;
+                                        },
+
+                                        destroy: function () {
+                                        }
+                                    }
+                                }                                
+                            </script>
+                        </sk-cell-renderer>
+
+                    </sk-datagrid>
+                    <label sk-padding-top="5px" style="font-weight: bold" sk-translate>
+                        Cotacao.RotinaCotacao.resumo
+                    </label>
+                    <sk-text-area sk-width="100%" sk-height="160px" sk-value="ctrl.erroSolicitacaoSelecionada">
+                    </sk-text-area>
+                </sk-vbox>
+        </sk-viewstack-content>
+    </sk-viewstack>
+</sk-vbox>

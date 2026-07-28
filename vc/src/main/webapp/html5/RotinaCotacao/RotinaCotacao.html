@@ -1,0 +1,20 @@
+<sk-application ng-controller="RotinaCotacaoController as ctrl" class="rotina-cotacao" style="max-height: 100vh;" flex>
+    <container-modo-cabecalho id="containerModoCabecalho" 
+                              ng-if="ctrl.modoCabecalho"
+                              on-content-created="ctrl.onContentCreated($instance)" 
+                              rotina-cotacao-instance="ctrl.rotinaCotacaoinstance" 
+                              config-rotina-cotacao="ctrl.configPreferencias"
+                              layout="column" 
+                              flex>
+    </container-modo-cabecalho>
+
+    <container-modo-itens id="containerModoItens" 
+                          ng-if="!ctrl.modoCabecalho" 
+                          rotina-cotacao-instance="ctrl.rotinaCotacaoinstance" 
+                          on-content-created="ctrl.onContentCreatedItem($instance)"
+                          layout="column" 
+                          show-filtro-itens="true"
+                          show-botoes-itens="true" 
+                          flex>
+    </container-modo-itens>
+</sk-application>

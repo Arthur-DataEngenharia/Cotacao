@@ -1,0 +1,39 @@
+<sk-application ng-controller="ModeloEmailCotacaoController as ctrl">
+    <sk-vbox width="100" height="100" gap="5">
+        <sk-hbox sk-margin="5px">
+            <button id="btnSalvar" type="button" class="btn btn-default ng-scope" sk-i18n toolTip="Geral.buttonSalvar" tooltip-placement="bottom" ng-click="ctrl.saveConfig()"
+                    ng-disabled="!ctrl.editing">
+                <sk-icon font-icon="ok"></sk-icon>
+            </button>
+            <button id="btnCancelar" type="button" class="btn btn-default ng-scope" sk-i18n tooltip="Geral.buttonCancelar" tooltip-placement="bottom"
+                    ng-click="ctrl.loadConfig()" ng-disabled="!ctrl.editing">
+                Descartar
+            </button>
+        </sk-hbox>
+
+        <hr width="100%">
+
+        <sk-simple-form sk-columns="1">
+            <sk-simple-item sk-label="cot_emailLblTipoEmail">
+                <sk-combobox sk-id="ctrl.cmbVarTipo" sk-value="ctrl.cmbVarTipo" sk-options="ctrl.tipoOptions" sk-allow-null="false" sk-change="ctrl.changeTipo()" style="max-width: 300px">
+                </sk-combobox>
+            </sk-simple-item>
+            <sk-simple-item sk-label="cot_emaillblInserirAssunto">
+                <sk-combobox sk-id="ctrl.cmbVarAssunto" sk-value="ctrl.cmbVarAssunto" sk-options="ctrl.assuntoOptions" sk-enabled="ctrl.editing" sk-allow-null="false" sk-change="ctrl.changeRecordAssunto()" style="max-width: 300px">
+                </sk-combobox>
+            </sk-simple-item>
+            <sk-simple-item sk-label="cot_emailLblVariaveisEmail">
+                <sk-combobox sk-id="ctrl.cmbVarConteudo" sk-value="ctrl.cmbVarConteudo" sk-enabled="ctrl.editing" sk-options="ctrl.emailOptions[ctrl.cmbVarTipo]" sk-allow-null="false" sk-change="ctrl.changeVarConteudo()" style="max-width: 300px">
+                </sk-combobox>
+            </sk-simple-item>
+            <sk-simple-item sk-label="cot_emailLblAssuntoEmail">
+                <sk-text-input sk-id="ctrl.txtAssunto" sk-value="ctrl.txtAssunto" sk-enabled="ctrl.editing" style="max-width: 300px">
+                </sk-text-input>
+            </sk-simple-item>
+            <sk-simple-item sk-label="cot_emailLblTextoEmail">
+                <sk-text-area sk-id="ctrl.atxtConteudoEmail" sk-value="ctrl.atxtConteudoEmail" sk-enabled="ctrl.editing" style="max-width: 600px">
+                </sk-text-area>
+            </sk-simple-item>
+        </sk-simple-form>
+    </sk-vbox>
+</sk-application>

@@ -1,0 +1,36 @@
+<sk-dataset id="dsProdutos" sk-dataset-created="ctrl.createDataSet(dataset)" sk-standalone>
+    <sk-dsfield-md name="FORNECEDOR" user-type="S" description="Cotacao.RotinaCotacao.headerFornecedor" sk-i18n>
+    </sk-dsfield-md>
+    <sk-dsfield-md name="PRODUTO" user-type="S" description="Cotacao.RotinaCotacao.headerProdutoGenerico" sk-i18n>
+    </sk-dsfield-md>
+    <sk-dsfield-md name="CODPRODESP" user-type="I" description="Cotacao.RotinaCotacao.headerProdutoEspecifico" sk-i18n>
+    </sk-dsfield-md>
+    <sk-dsfield-md name="Produto_DESCRPROD" user-type="S" sk-i18n>
+    </sk-dsfield-md>
+    <sk-dsfield-md name="CHAVE" user-type="S">
+    </sk-dsfield-md>
+    <sk-dsfield-md name="NUMCOTACAO" user-type="I">
+    </sk-dsfield-md>
+    <sk-dsfield-md name="CODLOCAL" user-type="I">
+    </sk-dsfield-md>
+    <sk-dsfield-md name="CODPARC" user-type="I">
+    </sk-dsfield-md>
+    <sk-dsfield-md name="CODPROD" user-type="I">
+    </sk-dsfield-md>
+    <sk-dsfield-md name="CONTROLE" user-type="S">
+    </sk-dsfield-md>
+    <sk-dsfield-md name="DIFERENCIADOR" user-type="S">
+    </sk-dsfield-md>
+</sk-dataset>
+
+<sk-vbox flex sk-margin-bottom="5px" sk-margin-left="5px" sk-margin-right="5px" sk-margin-top="px">
+    <sk-hbox sk-width="100%" gap="5px">
+        <button default styleName="btnAlerta">
+            <sk-icon class="icon-alert" font-icon="alert"></sk-icon>
+        </button>
+        <label styleName="alertIcon" sk-width="100%"
+            sk-translate>Cotacao.RotinaCotacao.msgNaoGeraPedidoSemInfoProdEsp</label>
+    </sk-hbox>
+    <sk-datagrid id="gradeProdutos" sk-dataset="ctrl.dsProdutos" sk-width="100%" sk-height="100%" flex>
+    </sk-datagrid>
+</sk-vbox>
