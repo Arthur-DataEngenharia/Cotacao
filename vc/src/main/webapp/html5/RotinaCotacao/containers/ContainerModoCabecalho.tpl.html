@@ -53,6 +53,8 @@
                                 </button>
                                 <button tooltip="Cotacao.RotinaCotacao.labelGerarPedidos"
                                         ng-click="ctrl.gerarPedidos()"
+                                        ng-disabled="!ctrl.podeGerarPedido"
+                                        class="btnGerarPedidoVerde"
                                         tooltip-placement="bottom"
                                         tooltip-append-to-body="true"
                                         default sk-i18n>

@@ -46,7 +46,7 @@ import java.util.Set;
  *
  * Corpo JSON (plano) esperado: { "CODTIPVENDA": "5", "NUMCOTACOES": ["123","124"] }
  */
-@Service(serviceName = "geraPedidoSP", transactionType = EJBTransactionType.Supports)
+@Service(serviceName = "geraPedidoSP", transactionType = EJBTransactionType.Required)
 public class geraPedidoController {
 
     private static final JapeWrapper cabDAO = JapeFactory.dao("CabecalhoNota");   // TGFCAB

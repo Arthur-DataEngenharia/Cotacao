@@ -9,7 +9,9 @@
 
     <menu id="data_cotacao" description="Addon Cotação" icon="/$ctx/assets/icon.png">
 
-        <ui id="RotinaCotacaoData" url="/$ctx/RotinaCotacao.xhtml5" description="Processo de Cotação"/>
+        <ui id="RotinaCotacaoData" url="/$ctx/RotinaCotacao.xhtml5" description="Processo de Cotação">
+            <acesso acronym="GPD" sequence="1" description="Gerar Pedido de Compra"/>
+        </ui>
 
 
     </menu>

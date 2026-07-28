@@ -12,8 +12,8 @@ angular
             configRotinaCotacao: '<'
         }
     })
-    .controller('ModoCabecalhoController', ['WhenReady', 'ServiceProxy', 'i18n', '$scope', 'ObjectUtils', 'MessageUtils', 'RotinaCotacaoUtil', 'SkApplicationInstance', 'SanPopup', 'DateUtils', 'StringUtils','MGEParameters',
-        function (WhenReady, ServiceProxy, i18n, $scope, ObjectUtils, MessageUtils, RotinaCotacaoUtil, SkApplicationInstance, SanPopup, DateUtils, StringUtils, MGEParameters) {
+    .controller('ModoCabecalhoController', ['WhenReady', 'ServiceProxy', 'i18n', '$scope', 'ObjectUtils', 'MessageUtils', 'RotinaCotacaoUtil', 'SkApplicationInstance', 'SanPopup', 'DateUtils', 'StringUtils','MGEParameters', 'MGEAuthorizationService',
+        function (WhenReady, ServiceProxy, i18n, $scope, ObjectUtils, MessageUtils, RotinaCotacaoUtil, SkApplicationInstance, SanPopup, DateUtils, StringUtils, MGEParameters, MGEAuthorizationService) {
             var self = this;
 
             ObjectUtils.implements(self, IDataSetObserver);
@@ -69,7 +69,11 @@ angular
             self.clearFilter = clearFilter;
             self.onDataGridLoaded = onDataGridLoaded;
             self.loadOnInitialize = MGEParameters.asBoolean("global.carregar.registros.iniciar.tela");
-            
+
+            // Controle de acesso do botao Gerar Pedido (acronym GPD no menu.xml).
+            // Deny por padrao ate a autorizacao carregar.
+            self.podeGerarPedido = false;
+
             self.$onInit = $onInit;
 
             self.rotinaCotacaoInstance;
@@ -77,6 +81,10 @@ angular
             function $onInit() {
                 self.onContentCreated({
                     $instance: _publicAPI
+                });
+
+                MGEAuthorizationService.loadAuthorization(SkApplicationInstance.getResourceID()).then(function (authData) {
+                    self.podeGerarPedido = authData.hasAccess("GPD");
                 });
 
                 ServiceProxy.addClientEvent('br.com.sankhya.cotacao.sugestao.fornecedores.enviar.email', function (clientEvent) {
@@ -488,6 +496,10 @@ angular
             }
 
             function gerarPedidos() {
+                if (!self.podeGerarPedido) {
+                    MessageUtils.showError(MessageUtils.TITLE_ERROR, i18n('Attach.msgControleAcesso'));
+                    return;
+                }
                 getItensCotacao(function (itensSelecionados) {
                     if (possuiSomenteItensAprovados(itensSelecionados)) {
                         geraPedidoNovoServico(itensSelecionados);
@@ -517,14 +529,13 @@ angular
                         NUMCOTACOES: numCotacoes
                     };
 
+                    // Sem .catch: em caso de erro o proprio framework exibe a mensagem real do
+                    // servico (MGEModelException). Um .catch com "" + err mostraria "[object Object]".
                     ServiceProxy.callService('addon-cotacao-data@geraPedidoSP.geraPedido', request)
                         .then(function (res) {
                             var msg = ObjectUtils.getProperty(res, 'responseBody.MENSAGEM');
                             MessageUtils.showInfo(MessageUtils.TITLE_INFORMATION, msg || i18n("cot_msgGeraPedidoSucesso"));
                             self.dsCabCotacao.refreshCurrentRow();
-                        })
-                        .catch(function (err) {
-                            MessageUtils.showError(MessageUtils.TITLE_ERROR, "" + err);
                         });
                 });
             }
